@@ -1,5 +1,6 @@
 *
 !*.lua
+!*.lua.template
 !README.md
 !LICENCE.md
 !LICENSE.md
