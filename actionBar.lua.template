@@ -18,5 +18,5 @@ local action = mainPage:newAction()
     :hoverColor(0, 0, 1) -- 選択時の色
     :onLeftClick(function()
         stop_all_animations()
-        playIfExists(animations.model, "animation1") -- アニメーションへのパス
+        safeAnim.playIfExists(animations.model, "animation1") -- アニメーションへのパス
     end)
