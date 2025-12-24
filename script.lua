@@ -1,7 +1,7 @@
 vanilla_model.PLAYER:setVisible(false)
 vanilla_model.ARMOR:setVisible(false)
 
-require("safeAnim")
+local safeAnim = require("safeAnim")
 local jumping = false
 function events.tick()
     local velocity_y = player:getVelocity().y
@@ -18,25 +18,24 @@ function events.tick()
     local is_swimming = player:isVisuallySwimming()
     jumping = (jumping == false) and (not is_on_ground and velocity_y > 0) or jumping
 
-    local animTbl = animations.model
     if jumping then
-        restartIfExists(animTbl, "jump")
+        safeAnim.restartIfExists(animations.model, "jump")
         jumping = nil
     end
     if jumping == nil and is_on_ground then
-        if isExistsAndPlaying(animTbl, "fall") and not is_moving then
-            restartIfExists(animTbl, "land")
+        if safeAnim.isExistsAndPlaying(animations.model, "fall") and not is_moving then
+            safeAnim.restartIfExists(animations.model, "land")
         end
         jumping = false
     end
     if is_moving then
-        stopIfExists(animTbl, "land")
+        safeAnim.stopIfExists(animations.model, "land")
     end
-    setPlayIfExists(animTbl, "crouch", is_crouching and not jumping)
-    setPlayIfExists(animTbl, "sprint", is_sprinting and not is_crouching and not jumping and is_on_ground)
-    setPlayIfExists(animTbl, "walk", is_walking and not is_crouching and not is_sprinting and not jumping and is_on_ground)
-    setPlayIfExists(animTbl, "idle", not is_walking and not is_crouching and not jumping and is_on_ground)
-    setPlayIfExists(animTbl, "fall", is_falling and not isExistsAndPlaying(animTbl, "jump"))
+    safeAnim.setPlayIfExists(animations.model, "crouch", is_crouching and not jumping)
+    safeAnim.setPlayIfExists(animations.model, "sprint", is_sprinting and not is_crouching and not jumping and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "walk", is_walking and not is_crouching and not is_sprinting and not jumping and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "idle", not is_walking and not is_crouching and not jumping and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "fall", is_falling and not safeAnim.isExistsAndPlaying(animations.model, "jump"))
 
 end
 
