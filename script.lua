@@ -31,10 +31,11 @@ function events.tick()
     if is_moving then
         safeAnim.stopIfExists(animations.model, "land")
     end
-    safeAnim.setPlayIfExists(animations.model, "crouch", is_crouching and not jumping)
-    safeAnim.setPlayIfExists(animations.model, "sprint", is_sprinting and not is_crouching and not jumping and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "walk", is_walking and not is_crouching and not is_sprinting and not jumping and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "idle", not is_walking and not is_crouching and not jumping and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "block", is_blocking)
+    safeAnim.setPlayIfExists(animations.model, "crouch", is_crouching and not jumping and not is_blocking)
+    safeAnim.setPlayIfExists(animations.model, "sprint", is_sprinting and not is_crouching and not jumping and not is_blocking and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "walk", is_walking and not is_sprinting and not is_crouching and not jumping and not is_blocking and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "idle", not is_walking and not is_sprinting and not is_crouching and not jumping and not is_blocking and is_on_ground)
     safeAnim.setPlayIfExists(animations.model, "fall", is_falling and not safeAnim.isExistsAndPlaying(animations.model, "jump"))
 
 end
