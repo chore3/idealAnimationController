@@ -33,12 +33,13 @@ function events.tick()
     end
     
     safeAnim.setPlayIfExists(animations.model, "block", is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "crouch", is_crouching and not is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "climb", is_climbing and not is_crouching and not is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "sprint", is_sprinting and not is_climbing and not is_crouching and not is_blocking and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "walk", is_walking and not is_sprinting and not is_climbing and not is_crouching and not is_blocking and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "idle", not is_walking and not is_sprinting and not is_climbing and not is_crouching and not is_blocking and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "fall", is_falling and not safeAnim.isExistsAndPlaying(animations.model, "jump"))
+    safeAnim.setPlayIfExists(animations.model, "glide", is_gliding and not is_blocking)
+    safeAnim.setPlayIfExists(animations.model, "crouch", is_crouching and not is_gliding and not is_blocking)
+    safeAnim.setPlayIfExists(animations.model, "climb", is_climbing and not is_crouching and not is_gliding and not is_blocking)
+    safeAnim.setPlayIfExists(animations.model, "sprint", is_sprinting and not is_climbing and not is_crouching and not is_gliding and not is_blocking and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "walk", is_walking and not is_sprinting and not is_climbing and not is_crouching and not is_gliding and not is_blocking and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "idle", not is_walking and not is_sprinting and not is_climbing and not is_crouching and not is_gliding and not is_blocking and is_on_ground)
+    safeAnim.setPlayIfExists(animations.model, "fall", is_falling and not is_gliding and not safeAnim.isExistsAndPlaying(animations.model, "jump"))
 
 end
 
