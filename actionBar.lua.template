@@ -1,0 +1,22 @@
+local mainPage = action_wheel:newPage()
+action_wheel:setPage(mainPage)
+
+-- 特定のグループを非表示にする
+local action = mainPage:newAction()
+    :title("ゴーグルの表示/非表示") -- 名称
+    :item("minecraft:spyglass") -- アイコン
+    :hoverColor(1, 0, 1) -- 選択時の色
+    :onLeftClick(function()
+        local target = models.model.Head.Goggles -- グループまでのパス(Head以降を書き換え)
+        target:setVisible(not target:getVisible())
+    end)
+
+-- 特定のアニメーションを再生する
+local action = mainPage:newAction()
+    :title("animation1を再生") -- 名称
+    :item("minecraft:enchanted_book") -- アイコン
+    :hoverColor(0, 0, 1) -- 選択時の色
+    :onLeftClick(function()
+        stop_all_animations()
+        playIfExists(animations.model, "animation1") -- アニメーションへのパス
+    end)
