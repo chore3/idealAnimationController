@@ -43,6 +43,3 @@ function events.tick()
     safeAnim.setPlayIfExists(animations.model, "fall", is_falling and not is_gliding and not safeAnim.isExistsAndPlaying(animations.model, "jump"))
 
 end
-
-
--- host:screenshot()で返したテクスチャを顔に貼り付けてみよう
