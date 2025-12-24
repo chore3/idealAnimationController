@@ -1,7 +1,7 @@
-local M = {}
+local safeAnim = {}
 
 -- Play/Stop
-function M.playIfExists(model, name)
+function safeAnim.playIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -10,7 +10,7 @@ function M.playIfExists(model, name)
     end
 end
 
-function M.stopIfExists(model, name)
+function safeAnim.stopIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -19,7 +19,7 @@ function M.stopIfExists(model, name)
     end
 end
 
-function M.pauseIfExists(model, name)
+function safeAnim.pauseIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -28,7 +28,7 @@ function M.pauseIfExists(model, name)
     end
 end
 
-function M.restartIfExists(model, name)
+function safeAnim.restartIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -37,7 +37,7 @@ function M.restartIfExists(model, name)
     end
 end
 
-function M.setPlayIfExists(model, name, bool)
+function safeAnim.setPlayIfExists(model, name, bool)
     if model then
         local anim = model[name]
         if anim then
@@ -46,7 +46,7 @@ function M.setPlayIfExists(model, name, bool)
     end
 end
 
-function M.isExistsAndPlaying(model, name)
+function safeAnim.isExistsAndPlaying(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -56,7 +56,7 @@ function M.isExistsAndPlaying(model, name)
 end
 
 
-function M.isExistsAndStopped(model, name)
+function safeAnim.isExistsAndStopped(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -65,7 +65,7 @@ function M.isExistsAndStopped(model, name)
     end
 end
 
-function M.isExistsAndPaused(model, name)
+function safeAnim.isExistsAndPaused(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -74,7 +74,7 @@ function M.isExistsAndPaused(model, name)
     end
 end
 
-function M.getPlayStateIfExists(model, name)
+function safeAnim.getPlayStateIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -84,7 +84,7 @@ function M.getPlayStateIfExists(model, name)
 end
 
 -- Timing
-function M.setSpeedIfExists(model, name, speed)
+function safeAnim.setSpeedIfExists(model, name, speed)
     if model then
         local anim = model[name]
         if anim then
@@ -93,7 +93,7 @@ function M.setSpeedIfExists(model, name, speed)
     end
 end
 
-function M.getSpeedIfExists(model, name)
+function safeAnim.getSpeedIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -102,7 +102,7 @@ function M.getSpeedIfExists(model, name)
     end
 end
 
-function M.setLengthIfExists(model, name, length)
+function safeAnim.setLengthIfExists(model, name, length)
     if model then
         local anim = model[name]
         if anim then
@@ -111,7 +111,7 @@ function M.setLengthIfExists(model, name, length)
     end
 end
 
-function M.getLengthIfExists(model, name)
+function safeAnim.getLengthIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -120,7 +120,7 @@ function M.getLengthIfExists(model, name)
     end
 end
 
-function M.setPriorityIfExists(model, name, priority)
+function safeAnim.setPriorityIfExists(model, name, priority)
     if model then
         local anim = model[name]
         if anim then
@@ -129,7 +129,7 @@ function M.setPriorityIfExists(model, name, priority)
     end
 end
 
-function M.getPriorityIfExists(model, name)
+function safeAnim.getPriorityIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -138,7 +138,7 @@ function M.getPriorityIfExists(model, name)
     end
 end
 
-function M.setTimeIfExists(model, name, time)
+function safeAnim.setTimeIfExists(model, name, time)
     if model then
         local anim = model[name]
         if anim then
@@ -147,7 +147,7 @@ function M.setTimeIfExists(model, name, time)
     end
 end
 
-function M.getTimeIfExists(model, name)
+function safeAnim.getTimeIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -156,7 +156,7 @@ function M.getTimeIfExists(model, name)
     end
 end
 
-function M.setOffsetIfExists(model, name, offset)
+function safeAnim.setOffsetIfExists(model, name, offset)
     if model then
         local anim = model[name]
         if anim then
@@ -165,7 +165,7 @@ function M.setOffsetIfExists(model, name, offset)
     end
 end
 
-function M.getOffsetIfExists(model, name)
+function safeAnim.getOffsetIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -174,7 +174,7 @@ function M.getOffsetIfExists(model, name)
     end
 end
 
-function M.setLoopIfExists(model, name, loop)
+function safeAnim.setLoopIfExists(model, name, loop)
     if model then
         local anim = model[name]
         if anim then
@@ -183,7 +183,7 @@ function M.setLoopIfExists(model, name, loop)
     end
 end
 
-function M.getLoopIfExists(model, name)
+function safeAnim.getLoopIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -192,7 +192,7 @@ function M.getLoopIfExists(model, name)
     end
 end
 
-function M.setBlendIfExists(model, name, blend)
+function safeAnim.setBlendIfExists(model, name, blend)
     if model then
         local anim = model[name]
         if anim then
@@ -201,7 +201,7 @@ function M.setBlendIfExists(model, name, blend)
     end
 end
 
-function M.getBlendIfExists(model, name)
+function safeAnim.getBlendIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -210,7 +210,7 @@ function M.getBlendIfExists(model, name)
     end
 end
 
-function M.setStartDelayIfExists(model, name, delay)
+function safeAnim.setStartDelayIfExists(model, name, delay)
     if model then
         local anim = model[name]
         if anim then
@@ -219,7 +219,7 @@ function M.setStartDelayIfExists(model, name, delay)
     end
 end
 
-function M.getStartDelayIfExists(model, name)
+function safeAnim.getStartDelayIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -228,7 +228,7 @@ function M.getStartDelayIfExists(model, name)
     end
 end
 
-function M.setLoopDelayIfExists(model, name, delay)
+function safeAnim.setLoopDelayIfExists(model, name, delay)
     if model then
         local anim = model[name]
         if anim then
@@ -237,7 +237,7 @@ function M.setLoopDelayIfExists(model, name, delay)
     end
 end
 
-function M.getLoopDelayIfExists(model, name)
+function safeAnim.getLoopDelayIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -247,7 +247,7 @@ function M.getLoopDelayIfExists(model, name)
 end
 
 -- Override
-function M.setOverrideIfExists(model, name, override)
+function safeAnim.setOverrideIfExists(model, name, override)
     if model then
         local anim = model[name]
         if anim then
@@ -256,7 +256,7 @@ function M.setOverrideIfExists(model, name, override)
     end
 end
 
-function M.setOverrideRotIfExists(model, name, override)
+function safeAnim.setOverrideRotIfExists(model, name, override)
     if model then
         local anim = model[name]
         if anim then
@@ -265,7 +265,7 @@ function M.setOverrideRotIfExists(model, name, override)
     end
 end
 
-function M.getOverrideRotIfExists(model, name)
+function safeAnim.getOverrideRotIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -274,7 +274,7 @@ function M.getOverrideRotIfExists(model, name)
     end
 end
 
-function M.setOverridePosIfExists(model, name, override)
+function safeAnim.setOverridePosIfExists(model, name, override)
     if model then
         local anim = model[name]
         if anim then
@@ -283,7 +283,7 @@ function M.setOverridePosIfExists(model, name, override)
     end
 end
 
-function M.getOverridePosIfExists(model, name)
+function safeAnim.getOverridePosIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -292,7 +292,7 @@ function M.getOverridePosIfExists(model, name)
     end
 end
 
-function M.setOverrideScaleIfExists(model, name, override)
+function safeAnim.setOverrideScaleIfExists(model, name, override)
     if model then
         local anim = model[name]
         if anim then
@@ -301,7 +301,7 @@ function M.setOverrideScaleIfExists(model, name, override)
     end
 end
 
-function M.getOverrideScaleIfExists(model, name)
+function safeAnim.getOverrideScaleIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -310,8 +310,8 @@ function M.getOverrideScaleIfExists(model, name)
     end
 end
 
--- Misc
-function M.getNameIfExists(model, name)
+-- safeAnimisc
+function safeAnim.getNameIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
@@ -320,7 +320,7 @@ function M.getNameIfExists(model, name)
     end
 end
 
-function M.newCodeIfExists(model, name, time, code)
+function safeAnim.newCodeIfExists(model, name, time, code)
     if model then
         local anim = model[name]
         if anim then
@@ -329,4 +329,4 @@ function M.newCodeIfExists(model, name, time, code)
     end
 end
 
-return M
+return safeAnim
