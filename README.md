@@ -9,7 +9,7 @@ https://gist.github.com/chore3/64d3f53f5efb5a4ac32baeb8006fb833
 ## Releases
 または、以下の方法で利用できます。
 
-1. [最新のリリース](https://github.com/chore3/idealAnimationController/releases/latest)からzipファイルをダウンロードする
+1. [最新のリリース](https://github.com/chore3/idealAnimationController/releases/latest)からidealAnimationController.zipをダウンロードする
 1. ダウンロードしたzipファイルの中身を、アバターのディレクトリにドラッグアンドドロップする
 
 Gistとは異なり、メインのプログラムファイルが短く書かれているため、こちらの方法でダウンロードしたほうがコードが読みやすいと思います。また、おそらくバグ修正や機能追加はこちらの配布方法の方が活発になります
