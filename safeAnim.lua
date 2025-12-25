@@ -5,7 +5,7 @@ function safeAnim.playIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
-            anim:play()
+            return anim:play()
         end
     end
 end
@@ -14,7 +14,7 @@ function safeAnim.stopIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
-            anim:stop()
+            return anim:stop()
         end
     end
 end
@@ -23,7 +23,7 @@ function safeAnim.pauseIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
-            anim:pause()
+            return anim:pause()
         end
     end
 end
@@ -32,7 +32,7 @@ function safeAnim.restartIfExists(model, name)
     if model then
         local anim = model[name]
         if anim then
-            anim:restart()
+            return anim:restart()
         end
     end
 end
@@ -41,7 +41,7 @@ function safeAnim.setPlayIfExists(model, name, bool)
     if model then
         local anim = model[name]
         if anim then
-            anim:setPlaying(bool)
+            return anim:setPlaying(bool)
         end
     end
 end
