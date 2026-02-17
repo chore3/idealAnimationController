@@ -1,0 +1,9 @@
+{
+  "name": "chore_3",
+  "description": "",
+  "authors": [
+    "chore_3"
+  ],
+  "color": "#f8c53a",
+  "autoScripts": ["script"]
+}
