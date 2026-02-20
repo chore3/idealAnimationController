@@ -5,5 +5,5 @@
     "chore_3"
   ],
   "color": "#f8c53a",
-  "autoScripts": ["script"]
+  "autoScripts": ["src/script"]
 }
