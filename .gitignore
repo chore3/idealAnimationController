@@ -1,9 +1,0 @@
-*
-!*.lua
-!*.lua.template
-!/templates*
-!README.md
-!LICENCE.md
-!LICENSE.md
-!avatar.json
-!.gitignore
