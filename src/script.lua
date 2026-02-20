@@ -1,7 +1,7 @@
 vanilla_model.PLAYER:setVisible(false)
 vanilla_model.ARMOR:setVisible(false)
 
-local safeAnim = require("safeAnim")
+local safeAnim = require("src/safeAnim")
 local jumping = false
 function events.tick()
     local velocity_y = player:getVelocity().y
