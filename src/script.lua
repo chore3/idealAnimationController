@@ -39,7 +39,7 @@ function events.tick()
             end
         end
     else
-        safeAnim.playIfExists(animations.model, "idle")
+        safeAnim.setPlayIfExists(animations.model, "idle", true)
     end
 
     safeAnim.setPlayIfExists(animations.skull, "skullAnim", true)
