@@ -9,19 +9,27 @@ local states = {
     walk = false,
     crouch = false,
     sprint = false,
+
     jump = false,
     fall = false,
     swim = false,
     climb = false,
     glide = false,
     block = false,
+
     chat = false,
     inventory = false,
+    inRain = false,
+    burn = false,
+
     fishing = false,
+    eat = false,
+    drink = false,
     riptide = false,
     sleep = false,
     flying = false,
-    dye = false
+    dye = false,
+    glow = false
 }
 
 local localState = {}
@@ -54,28 +62,38 @@ function events.tick()
     local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
+    
     local isSwimming = safePose == "SWIMMING"
-    local isGliding = player:isGliding()
+    local isSleeping = safePose == "SLEEPING"
+    local isGliding = isPlayerLoaded and player:isGliding() or false
+    local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
+    local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
-    setState("idle", v.xz:length() < 0.05 and onGround and not swimming)
-    setState("walk", v.xz:length() > 0.2 and onGround and not swimming)
+    setState("idle", v.xz:length() < 0.05 and onGround and not isSwimming and not isSleeping)
+    setState("walk", v.xz:length() > 0.2 and onGround and not isSwimming)
     setState("crouch", safePose == "CROUCHING")
-    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround and not swimming) or false)
+    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround and not isSwimming) or false)
 
     setState("jump", false) --host
-    setState("fall", not onGround and v.y < -0.6 and not swimming and not isGliding)
+    setState("fall", not onGround and v.y < -0.6 and not isSwimming and not isGliding)
     setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
-    setState("glide", isPlayerLoaded and isGliding or false)
-    
+    setState("glide", isGliding)
     setState("block", isPlayerLoaded and player:isBlocking() or false)
+
     setState("chat", false) --host
     setState("inventory", false) --host
+    setState("inRain", isPlayerLoaded and player:isInRain() or false)
+    setState("burn", isPlayerLoaded and player:isOnFire() or false)
+
     setState("fishing", isPlayerLoaded and player:isFishing() or false)
+    setState("eat", isEating)
+    setState("drink", isDrinking)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
-    setState("sleep", safePose == "SLEEPING")
+    setState("sleep", isSleeping)
     setState("flying", false) --host
     setState("dye", safePose == "DYING")
+    setState("glow", isPlayerLoaded and player:isGlowing() or false)
 
     syncStates()
 end
