@@ -56,7 +56,7 @@ function events.tick()
 
     setState("idle", v.xz:length() < 0.05 and onGround)
     setState("walk", v.xz:length() > 0.2 and onGround)
-    setState("crouch", player:isCrouching())
+    setState("crouch", safePose == "CROUCHING")
     setState("sprint", player:isSprinting() and onGround)
 
     setState("jump", false)
@@ -70,9 +70,9 @@ function events.tick()
     setState("inventory", false)
     setState("fishing", false)
     setState("riptide", false)
-    setState("sleep", false)
-    setState("dye", false)
-    
+    setState("sleep", safePose == "SLEEPING")
+    setState("dye", safePose == "DYING")
+
     syncStates()
 end
 
