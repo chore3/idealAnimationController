@@ -20,6 +20,7 @@ local states = {
     fishing = false,
     riptide = false,
     sleep = false,
+    flying = false,
     dye = false
 }
 
@@ -71,6 +72,7 @@ function events.tick()
     setState("fishing", isPlayerLoaded and player:isFishing() or false)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
     setState("sleep", safePose == "SLEEPING")
+    setState("flying", false) --host
     setState("dye", safePose == "DYING")
 
     syncStates()
