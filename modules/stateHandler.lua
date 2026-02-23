@@ -49,8 +49,10 @@ end
 -- ==================================================
 
 function events.tick()
-    local v = player:getVelocity()
-    local onGround = player:isOnGround()
+    local isPlayerLoaded = player:isLoaded()
+    local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
+    local onGround = isPlayerLoaded and player:isOnGround() or false
+    local safePose = isPlayerLoaded and player:getPose() or "STANDING"
 
     setState("idle", v.xz:length() < 0.05 and onGround)
     setState("walk", v.xz:length() > 0.2 and onGround)
