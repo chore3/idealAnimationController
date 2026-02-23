@@ -9,19 +9,26 @@ local states = {
     walk = false,
     crouch = false,
     sprint = false,
+
     jump = false,
     fall = false,
     swim = false,
     climb = false,
     glide = false,
     block = false,
+
     chat = false,
     inventory = false,
+    inRain = false,
+    burn = false,
+
     fishing = false,
+    eat = false,
     riptide = false,
     sleep = false,
     flying = false,
-    dye = false
+    dye = false,
+    glow = false
 }
 
 local localState = {}
