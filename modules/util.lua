@@ -54,6 +54,21 @@ function util.getUnexpectedAnimations(model, allowedSet)
     return diff
 end
 
+function util.getHighestPriorityActiveState(states, allowedSet)
+    local topState = nil
+    local maxPriority = -1
+    for name, isActive in pairs(states) do
+        if isActive then
+            local priority = allowedSet[name]
+            if priority and priority > maxPriority then
+                maxPriority = priority
+                topState = name
+            end
+        end
+    end
+    return topState
+end
+
 -- ==================================================
 
 return util
