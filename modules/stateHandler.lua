@@ -36,6 +36,13 @@ local function setState(name, value)
     end
 end
 
+local publicStates = {}
+local function syncPublicStates()
+    for name, st in pairs(states) do
+        publicStates[name] = st.current
+    end
+end
+
 -- ==================================================
 
 function events.tick()
@@ -46,7 +53,8 @@ function events.tick()
     setState("walk", v.xz:length() > 0.2 and onGround)
     setState("crouch", player:isCrouching())
     setState("sprint", player:isSprinting() and onGround)
-
+    
+    syncPublicStates()
 end
 
 -- ==================================================
