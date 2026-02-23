@@ -55,7 +55,7 @@ function events.tick()
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
     local isSwimming = safePose == "SWIMMING"
-    local isGliding = player:isGliding()
+    local isGliding = isPlayerLoaded and player:isGliding() or false
 
     setState("idle", v.xz:length() < 0.05 and onGround and not isSwimming)
     setState("walk", v.xz:length() > 0.2 and onGround and not isSwimming)
