@@ -7,20 +7,20 @@ local function noop() end
 local states = {
     idle = false,
     walk = false,
-    sprint = false,
     crouch = false,
+    sprint = false,
     jump = false,
-    swim = false,
-    glide = false,
-    climb = false,
     fall = false,
+    swim = false,
+    climb = false,
+    glide = false,
     block = false,
     chat = false,
     inventory = false,
     fishing = false,
     riptide = false,
     sleep = false,
-    dye = false,
+    dye = false
 }
 
 local localState = {}
@@ -49,13 +49,29 @@ end
 -- ==================================================
 
 function events.tick()
-    local v = player:getVelocity()
-    local onGround = player:isOnGround()
+    local isPlayerLoaded = player:isLoaded()
+    local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
+    local onGround = isPlayerLoaded and player:isOnGround() or false
+    local safePose = isPlayerLoaded and player:getPose() or "STANDING"
 
     setState("idle", v.xz:length() < 0.05 and onGround)
     setState("walk", v.xz:length() > 0.2 and onGround)
-    setState("crouch", player:isCrouching())
-    setState("sprint", player:isSprinting() and onGround)
+    setState("crouch", safePose == "CROUCHING")
+    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround) or false)
+
+    setState("jump", false) --host
+    setState("fall", not onGround and v.y < -0.6)
+    setState("swim", safePose == "SWIMMING")
+    setState("climb", isPlayerLoaded and player:isClimbing() or false)
+    setState("glide", isPlayerLoaded and player:isGliding() or false)
+    
+    setState("block", isPlayerLoaded and player:isBlocking() or false)
+    setState("chat", false) --host
+    setState("inventory", false) --host
+    setState("fishing", isPlayerLoaded and player:isFishing() or false)
+    setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
+    setState("sleep", safePose == "SLEEPING")
+    setState("dye", safePose == "DYING")
 
     syncStates()
 end
