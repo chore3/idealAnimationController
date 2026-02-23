@@ -49,6 +49,11 @@ local function setState(name, value)
     end
 end
 
+local function getCurrent(name)
+    local st = localState[name]
+    return st.current
+end
+
 local function syncStates()
     for name, st in pairs(localState) do
         states[name] = st.current
@@ -58,11 +63,17 @@ end
 -- ==================================================
 -- host
 local hostStates = {
-    jump = { prev = false, current = false, getter = function() return host:isJumping() end },
-    chat = { prev = false, current = false, getter = function() return host:isChatOpen() end },
+    jump = { prev = false, current = false, getter = function() end },
+    chat = { prev = false, current = false, getter = function()  end },
     inventory = { prev = false, current = false, getter = function() return host:isContainerOpen() end },
     flying = { prev = false, current = false, getter = function() return host:isFlying() end },
 }
+hostStates.jump.getter = function ()
+    return host:isJumping() and not getCurrent("swim") and not getCurrent("glide") and not getCurrent("flying")
+end
+hostStates.chat.getter = function ()
+    return host:isChatOpen() and not getCurrent("sleep")
+end
 
 function events.tick()
     if not host:isHost() then
