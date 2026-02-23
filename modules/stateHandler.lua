@@ -1,5 +1,22 @@
 local stateHandler = {}
-function stateHandler.jump() end
+local state = {
+    idle = {active = false, exclusive = false, onEvent = function() end},
+    walk = {active = false, exclusive = false, onEvent = function() end},
+    sprint = {active = false, exclusive = false, onEvent = function() end},
+    crouch = {active = false, exclusive = false, onEvent = function() end},
+    jump = {active = false, exclusive = false, onEvent = function() end},
+    swim = {active = false, exclusive = false, onEvent = function() end},
+    sleep = {active = false, exclusive = false, onEvent = function() end},
+    dye = {active = false, exclusive = false, onEvent = function() end},
+    fall = {active = false, exclusive = false, onEvent = function() end},
+    block = {active = false, exclusive = false, onEvent = function() end},
+    glide = {active = false, exclusive = false, onEvent = function() end},
+    climb = {active = false, exclusive = false, onEvent = function() end},
+    chat = {active = false, exclusive = false, onEvent = function() end},
+    inventory = {active = false, exclusive = false, onEvent = function() end},
+    fishing = {active = false, exclusive = false, onEvent = function() end},
+    riptide = {active = false, exclusive = false, onEvent = function() end}
+}
 
 -- ==================================================
 
