@@ -36,7 +36,7 @@ local customStates = {
 }
 
 function events.tick()
-    exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates), exclusive)
+    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates), exclusive)
     if exclusiveAnim then
         for name, _ in pairs(exclusive) do
             safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
