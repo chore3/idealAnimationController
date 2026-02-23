@@ -9,7 +9,7 @@ local util = require("modules/util")
 
 if host:isHost() then require("src/host") end
 require("src/both")
-require("src/onStateEvent")
+-- require("src/onStateEvent")
 
 -- ==================================================
 
