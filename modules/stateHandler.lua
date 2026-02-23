@@ -7,20 +7,20 @@ local function noop() end
 local states = {
     idle = false,
     walk = false,
-    sprint = false,
     crouch = false,
+    sprint = false,
     jump = false,
-    swim = false,
-    glide = false,
-    climb = false,
     fall = false,
+    swim = false,
+    climb = false,
+    glide = false,
     block = false,
     chat = false,
     inventory = false,
     fishing = false,
     riptide = false,
     sleep = false,
-    dye = false,
+    dye = false
 }
 
 local localState = {}
