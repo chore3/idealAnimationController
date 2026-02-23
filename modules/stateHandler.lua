@@ -59,6 +59,20 @@ function events.tick()
     setState("crouch", player:isCrouching())
     setState("sprint", player:isSprinting() and onGround)
 
+    setState("jump", false)
+    setState("fall", not onGround and v.y < -0.6)
+    setState("swim", safePose == "SWIMMING")
+    setState("climb", player:isClimbing())
+    setState("glide", player:isGliding())
+    
+    setState("block", player:isBlocking())
+    setState("chat", false)
+    setState("inventory", false)
+    setState("fishing", false)
+    setState("riptide", false)
+    setState("sleep", false)
+    setState("dye", false)
+    
     syncStates()
 end
 
