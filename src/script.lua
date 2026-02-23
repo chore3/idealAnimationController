@@ -32,11 +32,7 @@ function events.tick()
     exclusiveAnim = util.getHighestPriorityActiveState(stateHandler.states, exclusive)
     if exclusiveAnim then
         for name, _ in pairs(exclusive) do
-            if name == exclusiveAnim then
-                safeAnim.playIfExists(animations.model, exclusiveAnim)
-            else
-                safeAnim.stopIfExists(animations.model, name)
-            end
+            safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
         end
     else
         safeAnim.setPlayIfExists(animations.model, "idle", true)
