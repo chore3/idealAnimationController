@@ -24,8 +24,24 @@ local states = {
     dye       = { current = false, prev = false, onEvent = noop },
 }
 
+local function setState(name, value)
+    local st = states[name]
+    if not st then return end
+
+    st.prev = st.current
+    st.current = value
+
+    if st.current and not st.prev then
+        st.onEvent()
+    end
+end
 end
 
 -- ==================================================
 
+
+for name, st in pairs(states) do
+    stateHandler["is" .. name:gsub("^%l", string.upper)] = function() return st.current end
+    stateHandler["on" .. name:gsub("^%l", string.upper)] = function(fn) st.onEvent = fn or noop end
+end
 return stateHandler
