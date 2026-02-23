@@ -54,7 +54,7 @@ function events.tick()
     local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
-    local swimming = safePose == "SWIMMING"
+    local isSwimming = safePose == "SWIMMING"
     local isGliding = player:isGliding()
 
     setState("idle", v.xz:length() < 0.05 and onGround and not swimming)
@@ -64,7 +64,7 @@ function events.tick()
 
     setState("jump", false) --host
     setState("fall", not onGround and v.y < -0.6 and not swimming and not isGliding)
-    setState("swim", swimming)
+    setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
     setState("glide", isPlayerLoaded and isGliding or false)
     
