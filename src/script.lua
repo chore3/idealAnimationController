@@ -15,32 +15,32 @@ stateHandler.onWalk(function()
     log("walk")
 end)
 
-stateHandler.onSprint(function()
-    log("sprint")
-end)
-
 stateHandler.onCrouch(function()
     log("crouch")
+end)
+
+stateHandler.onSprint(function()
+    log("sprint")
 end)
 
 stateHandler.onJump(function()
     log("jump")
 end)
 
-stateHandler.onSwim(function()
-    log("swim")
+stateHandler.onFall(function()
+    log("fall")
 end)
 
-stateHandler.onGlide(function()
-    log("glide")
+stateHandler.onSwim(function()
+    log("swim")
 end)
 
 stateHandler.onClimb(function()
     log("climb")
 end)
 
-stateHandler.onFall(function()
-    log("fall")
+stateHandler.onGlide(function()
+    log("glide")
 end)
 
 stateHandler.onBlock(function()
@@ -65,6 +65,10 @@ end)
 
 stateHandler.onSleep(function()
     log("sleep")
+end)
+
+stateHandler.onFlying(function()
+    log("flying")
 end)
 
 stateHandler.onDye(function()
