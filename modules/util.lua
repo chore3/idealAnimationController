@@ -57,13 +57,10 @@ end
 function util.getHighestPriorityActiveState(states, allowedSet)
     local topState = nil
     local maxPriority = -1
-    for name, isActive in pairs(states) do
-        if isActive then
-            local priority = allowedSet[name]
-            if priority and priority > maxPriority then
-                maxPriority = priority
-                topState = name
-            end
+    for name, priority in pairs(allowedSet) do
+        if priority and priority > maxPriority and states[name] then
+            maxPriority = priority
+            topState = name
         end
     end
     return topState
