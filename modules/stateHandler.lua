@@ -101,7 +101,7 @@ end
 function events.tick()
     local isPlayerLoaded = player:isLoaded()
     local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
-    local onGround = isPlayerLoaded and player:isOnGround() or false
+    local isVisuallyOnGround = isPlayerLoaded and (player:isOnGround() or getCurrent("flying")) or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
 
     local isSwimming = safePose == "SWIMMING"
@@ -110,11 +110,11 @@ function events.tick()
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
     local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
-    setState("walk", v.xz:length() > 0.2 and onGround and not isSwimming)
+    setState("walk", v.xz:length() > 0.2 and isVisuallyOnGround and not isSwimming)
     setState("crouch", safePose == "CROUCHING")
-    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround and not isSwimming) or false)
+    setState("sprint", isPlayerLoaded and (player:isSprinting() and isVisuallyOnGround and not isSwimming) or false)
 
-    setState("fall", not onGround and v.y < -0.6 and not isSwimming and not isGliding)
+    setState("fall", not isVisuallyOnGround and v.y < -0.6 and not isSwimming and not isGliding)
     setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
     setState("glide", isGliding)
