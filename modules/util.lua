@@ -1,5 +1,9 @@
 local util = {}
 
+local safeAnim = require("modules/safeAnim")
+
+-- ==================================================
+
 function util.countChildren(root)
     local table = root:getChildren()
     local count = 0
@@ -36,5 +40,20 @@ function util.hideAllChildren(root)
     end
     return count
 end
+
+-- ==================================================
+
+function util.getUnexpectedAnimations(model, allowedSet)
+    local diff = {}
+    for _, anim in pairs(animations:getPlaying()) do
+        local name = anim:getName()
+        if model[name] and not allowedSet[name] then
+            table.insert(diff, anim)
+        end
+    end
+    return diff
+end
+
+-- ==================================================
 
 return util
