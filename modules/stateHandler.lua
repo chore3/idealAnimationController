@@ -110,7 +110,7 @@ function events.tick()
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
     local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
-    setState("walk", v.xz:length() > 0.2 and isVisuallyOnGround and not isSwimming)
+    setState("walk", v.xz:length() > 0.2 and isVisuallyOnGround and not isSwimming and not getCurrent("sprint"))
     setState("crouch", safePose == "CROUCHING")
     setState("sprint", isPlayerLoaded and (player:isSprinting() and isVisuallyOnGround and not isSwimming) or false)
 
