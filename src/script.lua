@@ -55,8 +55,20 @@ stateHandler.onInventory(function()
     log("inventory")
 end)
 
+stateHandler.onInRain(function()
+    log("inRain")
+end)
+
+stateHandler.onBurn(function()
+    log("burn")
+end)
+
 stateHandler.onFishing(function()
     log("fishing")
+end)
+
+stateHandler.onEat(function()
+    log("eat")
 end)
 
 stateHandler.onRiptide(function()
@@ -73,6 +85,10 @@ end)
 
 stateHandler.onDye(function()
     log("dye")
+end)
+
+stateHandler.onGlow(function()
+    log("glow")
 end)
 
 -- ==================================================
