@@ -1,331 +1,265 @@
 local safeAnim = {}
 
+function safeAnim.isExists(model, name)
+    if model then
+        return model[name] ~= nil
+    end
+end
+
 -- Play/Stop
 function safeAnim.playIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:play()
-        end
+        return anim:play()
     end
 end
 
 function safeAnim.stopIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:stop()
-        end
+        return anim:stop()
     end
 end
 
 function safeAnim.pauseIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:pause()
-        end
+        return anim:pause()
     end
 end
 
 function safeAnim.restartIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:restart()
-        end
+        return anim:restart()
     end
 end
 
 function safeAnim.setPlayIfExists(model, name, bool)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:setPlaying(bool)
-        end
+        return anim:setPlaying(bool)
     end
 end
 
 function safeAnim.isExistsAndPlaying(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:isPlaying()
-        end
+        return anim:isPlaying()
     end
 end
 
 
 function safeAnim.isExistsAndStopped(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:isStopped()
-        end
+        return anim:isStopped()
     end
 end
 
 function safeAnim.isExistsAndPaused(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:isPaused()
-        end
+        return anim:isPaused()
     end
 end
 
 function safeAnim.getPlayStateIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getPlayState()
-        end
+        return anim:getPlayState()
     end
 end
 
 -- Timing
 function safeAnim.setSpeedIfExists(model, name, speed)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setSpeed(speed)
-        end
+        anim:setSpeed(speed)
     end
 end
 
 function safeAnim.getSpeedIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getSpeed()
-        end
+        return anim:getSpeed()
     end
 end
 
 function safeAnim.setLengthIfExists(model, name, length)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setLength(length)
-        end
+        anim:setLength(length)
     end
 end
 
 function safeAnim.getLengthIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getLength()
-        end
+        return anim:getLength()
     end
 end
 
 function safeAnim.setPriorityIfExists(model, name, priority)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setPriority(priority)
-        end
+        anim:setPriority(priority)
     end
 end
 
 function safeAnim.getPriorityIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getPriority()
-        end
+        return anim:getPriority()
     end
 end
 
 function safeAnim.setTimeIfExists(model, name, time)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setTime(time)
-        end
+        anim:setTime(time)
     end
 end
 
 function safeAnim.getTimeIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getTime()
-        end
+        return anim:getTime()
     end
 end
 
 function safeAnim.setOffsetIfExists(model, name, offset)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setOffset(offset)
-        end
+        anim:setOffset(offset)
     end
 end
 
 function safeAnim.getOffsetIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getOffset()
-        end
+        return anim:getOffset()
     end
 end
 
 function safeAnim.setLoopIfExists(model, name, loop)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setLoop(loop)
-        end
+        anim:setLoop(loop)
     end
 end
 
 function safeAnim.getLoopIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getLoop()
-        end
+        return anim:getLoop()
     end
 end
 
 function safeAnim.setBlendIfExists(model, name, blend)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setBlend(blend)
-        end
+        anim:setBlend(blend)
     end
 end
 
 function safeAnim.getBlendIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getBlend()
-        end
+        return anim:getBlend()
     end
 end
 
 function safeAnim.setStartDelayIfExists(model, name, delay)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setStartDelay(delay)
-        end
+        anim:setStartDelay(delay)
     end
 end
 
 function safeAnim.getStartDelayIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getStartDelay()
-        end
+        return anim:getStartDelay()
     end
 end
 
 function safeAnim.setLoopDelayIfExists(model, name, delay)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setLoopDelay(delay)
-        end
+        anim:setLoopDelay(delay)
     end
 end
 
 function safeAnim.getLoopDelayIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getLoopDelay()
-        end
+        return anim:getLoopDelay()
     end
 end
 
 -- Override
 function safeAnim.setOverrideIfExists(model, name, override)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setOverride(override)
-        end
+        anim:setOverride(override)
     end
 end
 
 function safeAnim.setOverrideRotIfExists(model, name, override)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setOverrideRot(override)
-        end
+        anim:setOverrideRot(override)
     end
 end
 
 function safeAnim.getOverrideRotIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getOverrideRot()
-        end
+        return anim:getOverrideRot()
     end
 end
 
 function safeAnim.setOverridePosIfExists(model, name, override)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setOverridePos(override)
-        end
+        anim:setOverridePos(override)
     end
 end
 
 function safeAnim.getOverridePosIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getOverridePos()
-        end
+        return anim:getOverridePos()
     end
 end
 
 function safeAnim.setOverrideScaleIfExists(model, name, override)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:setOverrideScale(override)
-        end
+        anim:setOverrideScale(override)
     end
 end
 
 function safeAnim.getOverrideScaleIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getOverrideScale()
-        end
+        return anim:getOverrideScale()
     end
 end
 
 -- safeAnimisc
 function safeAnim.getNameIfExists(model, name)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            return anim:getName()
-        end
+        return anim:getName()
     end
 end
 
 function safeAnim.newCodeIfExists(model, name, time, code)
-    if model then
+    if safeAnim.isExists(model, name) then
         local anim = model[name]
-        if anim then
-            anim:newCode(time, code)
-        end
+        anim:newCode(time, code)
     end
 end
 
