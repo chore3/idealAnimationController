@@ -72,7 +72,10 @@ hostStates.jump.getter = function ()
     return host:isJumping() and not getCurrent("swim") and not getCurrent("glide") and not getCurrent("flying")
 end
 hostStates.chat.getter = function ()
-    return host:isChatOpen() and not getCurrent("sleep")
+    if not player:isLoaded() then
+        return hostStates.chat.prev
+    end
+    return not player:getPose() == "SLEEPING" and host:isChatOpen()
 end
 
 function events.tick()
