@@ -69,7 +69,7 @@ local hostStates = {
     flying = { prev = false, current = false, getter = function() return host:isFlying() end },
 }
 hostStates.jump.getter = function ()
-    return host:isJumping() and not getCurrent("swim") and not getCurrent("glide") and not getCurrent("flying")
+    return host:isJumping() and not host:isFlying() and not getCurrent("glide") and not getCurrent("swim")
 end
 hostStates.chat.getter = function ()
     if not player:isLoaded() then
