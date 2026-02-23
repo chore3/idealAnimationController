@@ -66,7 +66,7 @@ function events.tick()
     setState("fall", not onGround and v.y < -0.6 and not swimming and not isGliding)
     setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
-    setState("glide", isPlayerLoaded and isGliding or false)
+    setState("glide", isGliding)
     
     setState("block", isPlayerLoaded and player:isBlocking() or false)
     setState("chat", false) --host
