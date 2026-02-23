@@ -30,9 +30,11 @@ local exclusive = {
 
     unexpected = 100
 }
+
 local customStates = {
     unexpected = false
 }
+
 function events.tick()
     exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates), exclusive)
     if exclusiveAnim then
