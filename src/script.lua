@@ -8,67 +8,67 @@ local util = require("modules/util")
 -- ==================================================
 
 stateHandler.onIdle(function()
-
+    log("idle")
 end)
 
 stateHandler.onWalk(function()
-
+    log("walk")
 end)
 
 stateHandler.onSprint(function()
-
+    log("sprint")
 end)
 
 stateHandler.onCrouch(function()
-
+    log("crouch")
 end)
 
 stateHandler.onJump(function()
-
+    log("jump")
 end)
 
 stateHandler.onSwim(function()
-
+    log("swim")
 end)
 
 stateHandler.onGlide(function()
-
+    log("glide")
 end)
 
 stateHandler.onClimb(function()
-
+    log("climb")
 end)
 
 stateHandler.onFall(function()
-
+    log("fall")
 end)
 
 stateHandler.onBlock(function()
-
+    log("block")
 end)
 
 stateHandler.onChat(function()
-
+    log("chat")
 end)
 
 stateHandler.onInventory(function()
-
+    log("inventory")
 end)
 
 stateHandler.onFishing(function()
-
+    log("fishing")
 end)
 
 stateHandler.onRiptide(function()
-
+    log("riptide")
 end)
 
 stateHandler.onSleep(function()
-
+    log("sleep")
 end)
 
 stateHandler.onDye(function()
-
+    log("dye")
 end)
 
 -- ==================================================
@@ -76,5 +76,4 @@ end)
 function events.tick()
     safeAnim.setPlayIfExists(animations.model, "unexpected", true)
     safeAnim.setPlayIfExists(animations.skull, "sample", true)
-    log(util.getUnexpectedAnimations(animations.model, stateHandler.states))
 end
