@@ -98,6 +98,5 @@ end)
 -- ==================================================
 
 function events.tick()
-    safeAnim.setPlayIfExists(animations.model, "unexpected", true)
     safeAnim.setPlayIfExists(animations.skull, "skullAnim", true)
 end
