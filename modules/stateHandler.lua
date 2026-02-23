@@ -20,6 +20,7 @@ local states = {
     fishing = false,
     riptide = false,
     sleep = false,
+    flying = false,
     dye = false
 }
 
@@ -53,17 +54,19 @@ function events.tick()
     local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
+    local isSwimming = safePose == "SWIMMING"
+    local isGliding = player:isGliding()
 
-    setState("idle", v.xz:length() < 0.05 and onGround)
-    setState("walk", v.xz:length() > 0.2 and onGround)
+    setState("idle", v.xz:length() < 0.05 and onGround and not swimming)
+    setState("walk", v.xz:length() > 0.2 and onGround and not swimming)
     setState("crouch", safePose == "CROUCHING")
-    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround) or false)
+    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround and not swimming) or false)
 
     setState("jump", false) --host
-    setState("fall", not onGround and v.y < -0.6)
-    setState("swim", safePose == "SWIMMING")
+    setState("fall", not onGround and v.y < -0.6 and not swimming and not isGliding)
+    setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
-    setState("glide", isPlayerLoaded and player:isGliding() or false)
+    setState("glide", isPlayerLoaded and isGliding or false)
     
     setState("block", isPlayerLoaded and player:isBlocking() or false)
     setState("chat", false) --host
@@ -71,6 +74,7 @@ function events.tick()
     setState("fishing", isPlayerLoaded and player:isFishing() or false)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
     setState("sleep", safePose == "SLEEPING")
+    setState("flying", false) --host
     setState("dye", safePose == "DYING")
 
     syncStates()
