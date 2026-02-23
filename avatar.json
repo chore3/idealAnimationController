@@ -1,9 +1,11 @@
 {
-  "name": "chore_3",
+  "name": "dev",
   "description": "",
   "authors": [
     "chore_3"
   ],
   "color": "#f8c53a",
-  "autoScripts": ["src/script"]
+  "autoScripts": [
+    "src/script"
+  ]
 }
