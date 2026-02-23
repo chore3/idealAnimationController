@@ -35,6 +35,18 @@ local function setState(name, value)
         st.onEvent()
     end
 end
+
+-- ==================================================
+
+function events.tick()
+    local v = player:getVelocity()
+    local onGround = player:isOnGround()
+
+    setState("idle", v.xz:length() < 0.05 and onGround)
+    setState("walk", v.xz:length() > 0.2 and onGround)
+    setState("crouch", player:isCrouching())
+    setState("sprint", player:isSprinting() and onGround)
+
 end
 
 -- ==================================================

@@ -6,5 +6,7 @@ local stateHandler = require("modules/stateHandler")
 
 -- ==================================================
 
-function stateHandler.jump()
+
+function events.tick()
+    log(stateHandler.isIdle())
 end
