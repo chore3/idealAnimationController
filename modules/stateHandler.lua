@@ -24,6 +24,7 @@ local states = {
 
     fishing = false,
     eat = false,
+    drink = false,
     riptide = false,
     sleep = false,
     flying = false,
@@ -61,10 +62,12 @@ function events.tick()
     local v = isPlayerLoaded and player:getVelocity() or vec(0, 0, 0)
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
+    
     local isSwimming = safePose == "SWIMMING"
     local isSleeping = safePose == "SLEEPING"
     local isGliding = isPlayerLoaded and player:isGliding() or false
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
+    local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
     setState("idle", v.xz:length() < 0.05 and onGround and not isSwimming and not isSleeping)
     setState("walk", v.xz:length() > 0.2 and onGround and not isSwimming)
@@ -85,6 +88,7 @@ function events.tick()
 
     setState("fishing", isPlayerLoaded and player:isFishing() or false)
     setState("eat", isEating)
+    setState("drink", isDrinking)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
     setState("sleep", isSleeping)
     setState("flying", false) --host

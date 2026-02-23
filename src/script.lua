@@ -71,6 +71,10 @@ stateHandler.onEat(function()
     log("eat")
 end)
 
+stateHandler.onDrink(function()
+    log("drink")
+end)
+
 stateHandler.onRiptide(function()
     log("riptide")
 end)
