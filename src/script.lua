@@ -26,10 +26,17 @@ local exclusive = {
     fishing = 9,
     riptide = 10,
     sleep = 11,
-    dye = 12
+    dye = 12,
+
+    unexpected = 100
 }
+
+local customStates = {
+    unexpected = false
+}
+
 function events.tick()
-    exclusiveAnim = util.getHighestPriorityActiveState(stateHandler.states, exclusive)
+    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates), exclusive)
     if exclusiveAnim then
         for name, _ in pairs(exclusive) do
             safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
