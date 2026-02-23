@@ -55,6 +55,7 @@ function events.tick()
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
     local swimming = safePose == "SWIMMING"
+    local isGliding = player:isGliding()
 
     setState("idle", v.xz:length() < 0.05 and onGround and not swimming)
     setState("walk", v.xz:length() > 0.2 and onGround and not swimming)
@@ -62,10 +63,10 @@ function events.tick()
     setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround and not swimming) or false)
 
     setState("jump", false) --host
-    setState("fall", not onGround and v.y < -0.6 and not swimming)
+    setState("fall", not onGround and v.y < -0.6 and not swimming and not isGliding)
     setState("swim", swimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
-    setState("glide", isPlayerLoaded and player:isGliding() or false)
+    setState("glide", isPlayerLoaded and isGliding or false)
     
     setState("block", isPlayerLoaded and player:isBlocking() or false)
     setState("chat", false) --host
