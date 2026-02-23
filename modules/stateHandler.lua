@@ -57,19 +57,19 @@ function events.tick()
     setState("idle", v.xz:length() < 0.05 and onGround)
     setState("walk", v.xz:length() > 0.2 and onGround)
     setState("crouch", safePose == "CROUCHING")
-    setState("sprint", player:isSprinting() and onGround)
+    setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround) or false)
 
     setState("jump", false) --host
     setState("fall", not onGround and v.y < -0.6)
     setState("swim", safePose == "SWIMMING")
-    setState("climb", player:isClimbing())
-    setState("glide", player:isGliding())
+    setState("climb", isPlayerLoaded and player:isClimbing() or false)
+    setState("glide", isPlayerLoaded and player:isGliding() or false)
     
-    setState("block", player:isBlocking())
+    setState("block", isPlayerLoaded and player:isBlocking() or false)
     setState("chat", false) --host
     setState("inventory", false) --host
-    setState("fishing", false)
-    setState("riptide", false)
+    setState("fishing", isPlayerLoaded and player:isFishing() or false)
+    setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
     setState("sleep", safePose == "SLEEPING")
     setState("dye", safePose == "DYING")
 
