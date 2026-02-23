@@ -1,64 +1,28 @@
 local stateHandler = {}
-local state = {
-    idle = {active = false, exclusive = false, onEvent = function() end},
-    walk = {active = false, exclusive = false, onEvent = function() end},
-    sprint = {active = false, exclusive = false, onEvent = function() end},
-    crouch = {active = false, exclusive = false, onEvent = function() end},
-    jump = {active = false, exclusive = false, onEvent = function() end},
-    swim = {active = false, exclusive = false, onEvent = function() end},
-    sleep = {active = false, exclusive = false, onEvent = function() end},
-    dye = {active = false, exclusive = false, onEvent = function() end},
-    fall = {active = false, exclusive = false, onEvent = function() end},
-    block = {active = false, exclusive = false, onEvent = function() end},
-    glide = {active = false, exclusive = false, onEvent = function() end},
-    climb = {active = false, exclusive = false, onEvent = function() end},
-    chat = {active = false, exclusive = false, onEvent = function() end},
-    inventory = {active = false, exclusive = false, onEvent = function() end},
-    fishing = {active = false, exclusive = false, onEvent = function() end},
-    riptide = {active = false, exclusive = false, onEvent = function() end}
-}
 
 -- ==================================================
 
-local jumping = false
-function events.tick()
-    local velocity_y = player:getVelocity().y
-    local is_crouching = player:isCrouching()
-    local is_walking = player:getVelocity().xz:length() > .01
-    local is_sprinting = player:isSprinting()
-    local is_on_ground = player:isOnGround()
-    local is_falling = not is_on_ground and velocity_y < -0.6 or false
-    local is_moving = player:getVelocity().xz:length() > 0.2
+local function noop() end
 
-    local is_blocking = player:isBlocking()
-    local is_climbing = player:isClimbing()
-    local is_gliding = player:isGliding()
-    local is_swimming = player:isVisuallySwimming()
-    jumping = (jumping == false) and (not is_on_ground and velocity_y > 0) or jumping
+local states = {
+    idle      = { current = false, prev = false, onEvent = noop },
+    walk      = { current = false, prev = false, onEvent = noop },
+    sprint    = { current = false, prev = false, onEvent = noop },
+    crouch    = { current = false, prev = false, onEvent = noop },
+    jump      = { current = false, prev = false, onEvent = noop },
+    swim      = { current = false, prev = false, onEvent = noop },
+    glide     = { current = false, prev = false, onEvent = noop },
+    climb     = { current = false, prev = false, onEvent = noop },
+    fall      = { current = false, prev = false, onEvent = noop },
 
-    if jumping then
-        safeAnim.restartIfExists(animations.model, "jump")
-        jumping = nil
-    end
-    if jumping == nil and is_on_ground then
-        if safeAnim.isExistsAndPlaying(animations.model, "fall") and not is_moving then
-            safeAnim.restartIfExists(animations.model, "land")
-        end
-        jumping = false
-    end
-    if is_moving then
-        safeAnim.stopIfExists(animations.model, "land")
-    end
-    
-    safeAnim.setPlayIfExists(animations.model, "block", is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "swim", is_swimming and not is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "glide", is_gliding and not is_swimming and not is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "crouch", is_crouching and not is_gliding and not is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "climb", is_climbing and not is_crouching and not is_gliding and not is_swimming and not is_blocking)
-    safeAnim.setPlayIfExists(animations.model, "sprint", is_sprinting and not is_climbing and not is_crouching and not is_gliding and not is_swimming and not is_blocking and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "walk", is_walking and not is_sprinting and not is_climbing and not is_crouching and not is_gliding and not is_swimming and not is_blocking and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "idle", not is_walking and not is_sprinting and not is_climbing and not is_crouching and not is_gliding and not is_swimming and not is_blocking and is_on_ground)
-    safeAnim.setPlayIfExists(animations.model, "fall", is_falling and not is_gliding and not safeAnim.isExistsAndPlaying(animations.model, "jump"))
+    block     = { current = false, prev = false, onEvent = noop },
+    chat      = { current = false, prev = false, onEvent = noop },
+    inventory = { current = false, prev = false, onEvent = noop },
+    fishing   = { current = false, prev = false, onEvent = noop },
+    riptide   = { current = false, prev = false, onEvent = noop },
+    sleep     = { current = false, prev = false, onEvent = noop },
+    dye       = { current = false, prev = false, onEvent = noop },
+}
 
 end
 
