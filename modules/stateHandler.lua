@@ -62,10 +62,11 @@ function events.tick()
     local onGround = isPlayerLoaded and player:isOnGround() or false
     local safePose = isPlayerLoaded and player:getPose() or "STANDING"
     local isSwimming = safePose == "SWIMMING"
+    local isSleeping = safePose == "SLEEPING"
     local isGliding = isPlayerLoaded and player:isGliding() or false
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
 
-    setState("idle", v.xz:length() < 0.05 and onGround and not isSwimming)
+    setState("idle", v.xz:length() < 0.05 and onGround and not isSwimming and not isSleeping)
     setState("walk", v.xz:length() > 0.2 and onGround and not isSwimming)
     setState("crouch", safePose == "CROUCHING")
     setState("sprint", isPlayerLoaded and (player:isSprinting() and onGround and not isSwimming) or false)
@@ -85,7 +86,7 @@ function events.tick()
     setState("fishing", isPlayerLoaded and player:isFishing() or false)
     setState("eat", isEating)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
-    setState("sleep", safePose == "SLEEPING")
+    setState("sleep", isSleeping)
     setState("flying", false) --host
     setState("dye", safePose == "DYING")
     setState("glow", isPlayerLoaded and player:isGlowing() or false)
