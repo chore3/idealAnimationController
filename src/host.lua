@@ -1,0 +1,15 @@
+local mainPage = action_wheel:newPage()
+action_wheel:setPage(mainPage)
+
+local tglUnexpected = mainPage:newAction()
+    :title("unexpected")
+    :item("minecraft:gray_dye")
+    :toggleItem("minecraft:lime_dye")
+tglUnexpected:setOnToggle(function () customStates.unexpected = tglUnexpected:isToggled() end)
+
+local tglHalo = mainPage:newAction()
+    :title("tglHalo")
+    :item("minecraft:gray_dye")
+    :toggleItem("minecraft:lime_dye")
+    :setToggled(true)
+tglHalo:setOnToggle(function () pings.tglHalo(tglHalo:isToggled()) end)

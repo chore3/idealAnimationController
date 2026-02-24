@@ -57,16 +57,26 @@ end
 function util.getHighestPriorityActiveState(states, allowedSet)
     local topState = nil
     local maxPriority = -1
-    for name, isActive in pairs(states) do
-        if isActive then
-            local priority = allowedSet[name]
-            if priority and priority > maxPriority then
-                maxPriority = priority
-                topState = name
-            end
+    for name, priority in pairs(allowedSet) do
+        local state = true
+        if states[name] ~= nil then
+            state = states[name]
+        end
+        if priority and priority > maxPriority and state then
+            maxPriority = priority
+            topState = name
         end
     end
     return topState
+end
+
+-- ==================================================
+
+function util.mergeTable(t1, t2)
+    local res = {}
+    for k, v in pairs(t1) do res[k] = v end
+    for k, v in pairs(t2) do res[k] = v end
+    return res
 end
 
 -- ==================================================
