@@ -27,13 +27,13 @@ local exclusive = {
     sleep = 11,
     dye = 12,
 
-    unexpected = 100
+    newExclusiveAnimation = 100
 }
 -- # カスタムstates
 -- [排他的なアニメーションを拡張する際に活用できます。]
 -- [例えば、アクションホイールで真偽値を切り替えることで他のアニメーションを再生せずに任意のアニメーションだけを再生できます。]
 _G.customStates = {
-    unexpected = false
+    newExclusiveAnimation = false
 }
 
 if host:isHost() then require("src/host") end
