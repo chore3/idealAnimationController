@@ -8,7 +8,7 @@ local tglUnexpected = mainPage:newAction()
 tglUnexpected:setOnToggle(function () customStates.unexpected = tglUnexpected:isToggled() end)
 
 local tglHalo = mainPage:newAction()
-    :title("tglHalo")
+    :title("tgl halo")
     :item("minecraft:gray_dye")
     :toggleItem("minecraft:lime_dye")
     :setToggled(true)
