@@ -13,3 +13,8 @@ local tglHalo = mainPage:newAction()
     :toggleItem("minecraft:lime_dye")
     :setToggled(true)
 tglHalo:setOnToggle(function () pings.tglHalo(tglHalo:isToggled()) end)
+
+local waveHand = mainPage:newAction()
+    :title("wave hand")
+    :item("minecraft:cookie")
+    :setOnToggle(function () pings.waveHand() end)
