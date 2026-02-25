@@ -79,6 +79,21 @@ function util.mergeTable(t1, t2)
     return res
 end
 
+function util.randomBoxPos(min, max)
+    local SCALE = 1000
+    if max < min then
+        buffer = max
+        max = min
+        min = buffer
+    end
+    min = min * SCALE
+    max = max * SCALE
+    if math.abs(min) < 0 or math.abs(max) < 0 then
+        return nil
+    end
+    return vec(math.random(min, max) / SCALE, math.random(min, max) / SCALE, math.random(min, max) / SCALE)
+end
+
 -- ==================================================
 
 return util
