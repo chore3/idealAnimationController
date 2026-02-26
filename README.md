@@ -9,9 +9,7 @@
 
 # 📌機能
 ## アニメーションの自動再生
-以下の名称で作成されたアニメーションは適切なタイミングで自動再生されます。
-排他的なアニメーションは最も優先度の高い1つのみが再生されます。
-
+デフォルト状態で自動再生されるアニメーションは以下の通りです。
 | 名称 | 説明 | 排他的 | 優先度 | 推奨ループモード |
 | :-- | :-- | :-: | :-- | :-- |
 | `idle` | 何もせずに立っているときに再生されます | ○ | 0 | ループ |
@@ -28,7 +26,12 @@
 | `die` | 死亡時に再生されます | ○ | 11 | ループ |
 | `onJump` | ジャンプしたときに再生されます | × | - | 一回のみ |
 
-排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。
+
+複数の「排他的」なアニメーションが再生されるべき状態にある場合、最も優先度の高い1つのみが再生されます。
+
+例えば、プレイヤーが「釣り」をしながら「走っている」場合、アニメーション`sprint`と`fishing`の両方が再生される条件を満たしますが、デフォルト状態では`fishing`よりも`sprint`の方が優先度が高いため`sprint`のみが再生されます。排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。いくつか変更例を見てみましょう。
+
+クリエイティブモードの飛行時のみ異なるアニメーションを再生する場合は`flying`を追加します。
 ```
 local exclusiveAnimationsMap = {
     idle = 0,
@@ -42,17 +45,65 @@ local exclusiveAnimationsMap = {
     glide = 8,
     riptide = 9,
     sleep = 10,
-    die = 11
+    die = 11,
+
+    flying = 12
 }
 ```
+`idle`, `fishing`そして`flying`のように事前に定義されている「状態」は`stateHandler`というモジュールで管理されています。すべての「状態」については次章を参照してください。
+
+また、stateHandlerモジュールで管理していない独自の「状態」を追加することもできます。独自の状態を利用するには、`customStates`に新たな「状態」を追記してください。`customStates`に入力した状態はstateHandlerモジュールで管理している「状態」と同様に`exclusiveAnimationsMap`に名称と優先度を入力することで自動再生できます。
+
+例えば、`newExclusiveAnimation`を新たに排他的なアニメーションとして追加する場合、以下のようにします。
+```
+local exclusiveAnimationsMap = {
+    idle = 0,
+    fishing = 1,
+    walk = 2,
+    crouch = 3,
+    sprint = 4,
+    swim = 5,
+    climb = 6,
+    fall = 7,
+    glide = 8,
+    riptide = 9,
+    sleep = 10,
+    die = 11,
+
+    newExclusiveAnimation = 100
+}
+
+_G.customStates = {
+    newExclusiveAnimation = false
+}
+```
+`newExclusiveAnimation`は100であり、これは他のどの「状態」よりも高い優先度であるため、アクションホイールなどで`customStates.newExclusiveAnimation = true`のようにして`newExclusiveAnimation`の状態を真(true)にした場合、常に`newExclusiveAnimation`という名称のアニメーションが再生されます。
 
 ## イベントハンドラ
-プレイヤーの「状態」が変化した瞬間だけ実行される関数です。
+stateHandlerモジュールで管理している「状態」が真(true)に変化した瞬間だけ実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
 
+```
+stateHandler.on<状態名>
+```
+
+**イベントハンドラの例：**
+- onJump
+- onSprint
+- onInventory
+
+例えば、デフォルトのプログラムでは、プレイヤーがプレイヤーがジャンプした瞬間にだけ`onJump`というアニメーションを再生するために、以下のようなイベントハンドラを利用しています。
+
+```
+stateHandler.onJump(function()
+    safeAnim.setPlayIfExists(animations.model, "onJump", true)
+end)
+```
+
+すべてのイベントハンドラについては次章を参照してください。
 
 ---
 
-# モジュール
+# 🍕モジュール
 ## safeAnim
 指定したアニメーションが存在する場合にのみ再生を試みるAnimationのラッパー関数です。FiguraMODのAnimationの代わりに利用することで存在しないアニメーション参照した場合に起こるエラーを防ぐことができます。
 
