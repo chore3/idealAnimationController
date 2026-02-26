@@ -2,14 +2,11 @@ local safeAnim = require("modules/safeAnim")
 
 -- ==================================================
 
-function pings.tglNewExclusiveAnimation(bool)
-    customStates.newExclusiveAnimation = bool
+-- 下記実装例を使うときは --[[ と ]] を削除してください。
+--[[
+
+function pings.ping1()
+    -- pingを受け取った時の動作
 end
 
-function pings.tglHalo(bool)
-    models.model.Halo:setVisible(bool)
-end
-
-function pings.waveHand()
-    safeAnim.setPlayIfExists(animations.model, "nonExclusiveAnimation", true)
-end
+]]

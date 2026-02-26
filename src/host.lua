@@ -4,23 +4,24 @@
 
 -- ==================================================
 
+-- 下記実装例を使うときは --[[ と ]] を削除してください。
+--[[
+
 local mainPage = action_wheel:newPage()
 action_wheel:setPage(mainPage)
 
-local tglNewExclusiveAnimation = mainPage:newAction()
+local action1 = mainPage:newAction()
     :title("newExclusiveAnimation")
     :item("minecraft:gray_dye")
     :toggleItem("minecraft:lime_dye")
-tglNewExclusiveAnimation:setOnToggle(function () pings.tglNewExclusiveAnimation(tglNewExclusiveAnimation:isToggled()) end)
 
-local tglHalo = mainPage:newAction()
-    :title("tgl halo")
-    :item("minecraft:gray_dye")
-    :toggleItem("minecraft:lime_dye")
-    :setToggled(true)
-tglHalo:setOnToggle(function () pings.tglHalo(tglHalo:isToggled()) end)
+action1:setOnToggle(function ()
+    -- # クリックされたときの動作を記入
+    -- 第三者にも状態を教えるためにはpingを利用する必要があります(https://figura-wiki.pages.dev/tutorials/Pings)
 
-local waveHand = mainPage:newAction()
-    :title("wave hand")
-    :item("minecraft:cookie")
-    :setOnToggle(function () pings.waveHand() end)
+    -- pings.ping1(action1:isToggled())
+
+    -- ※ このファイルはHost(アバターを着ている本人)でしか実行されないためpingの受信は(./both.luaやscript.lua)で行ってください。
+end)
+
+]]
