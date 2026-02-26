@@ -34,10 +34,6 @@ local exclusiveAnimationsMap = {
 _G.customStates = {
 }
 
-if host:isHost() then require("./host") end
-require("./both")
--- require("./onStateEvent")
-
 -- ==================================================
 
 function events.tick()
@@ -50,3 +46,9 @@ function events.tick()
         safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
     end
 end
+
+-- # stateEvents
+-- [stateHandler.statesの値が真(true)になった瞬間のみ実行される関数です。]
+stateHandler.onJump(function()
+    safeAnim.setPlayIfExists(animations.model, "onJump", true)
+end)
