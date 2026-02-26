@@ -1,18 +1,9 @@
 # 導入方法
-## Gist
-従来通りの方法です。簡単に利用できます。
-
-リンク先のスクリプトをコピーアンドペーストする。
-
-https://gist.github.com/chore3/64d3f53f5efb5a4ac32baeb8006fb833
-
 ## Releases
-または、以下の方法で利用できます。
 
-1. [最新のリリース](https://github.com/chore3/idealAnimationController/releases/latest)からidealAnimationController.zipをダウンロードする
-1. ダウンロードしたzipファイルの中身を、アバターのディレクトリにドラッグアンドドロップする
-
-Gistとは異なり、メインのプログラムファイルが短く書かれているため、こちらの方法でダウンロードしたほうがコードが読みやすいと思います。また、おそらくバグ修正や機能追加はこちらの配布方法の方が活発になります
+1. [最新のリリース](https://github.com/chore3/idealAnimationController/releases/latest)から`idealAnimationController.zip`をダウンロード
+1. zipファイルを解凍する
+1. `modules`, `src`, `avatar.json`をアバターのフォルダにドラッグアンドドロップ
 
 # 利用方法
 ## 再生可能なアニメーションの種類
