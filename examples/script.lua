@@ -54,5 +54,5 @@ function events.tick()
         safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, name == exclusiveAnim)
     end
 
-    safeAnim.setPlayIfExists(animations.skull, "skullAnim", true)
+    safeAnim.setPlayIfExists(animations["examples.models.skull"], "skullAnim", true)
 end
