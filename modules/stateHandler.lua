@@ -114,7 +114,7 @@ function events.tick()
     setState("crouch", safePose == "CROUCHING")
     setState("sprint", isPlayerLoaded and (player:isSprinting() and isVisuallyOnGround and not isSwimming) or false)
 
-    setState("fall", not isVisuallyOnGround and v.y < -0.6 and not isSwimming and not isGliding)
+    setState("fall", not isVisuallyOnGround and v.y < -0.1 and not isSwimming and not isGliding)
     setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
     setState("glide", isGliding)

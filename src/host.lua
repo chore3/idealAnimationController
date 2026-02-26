@@ -7,11 +7,11 @@
 local mainPage = action_wheel:newPage()
 action_wheel:setPage(mainPage)
 
-local tglUnexpected = mainPage:newAction()
+local tglNewExclusiveAnimation = mainPage:newAction()
     :title("newExclusiveAnimation")
     :item("minecraft:gray_dye")
     :toggleItem("minecraft:lime_dye")
-tglUnexpected:setOnToggle(function () customStates.newExclusiveAnimation = tglUnexpected:isToggled() end)
+tglNewExclusiveAnimation:setOnToggle(function () pings.tglNewExclusiveAnimation(tglNewExclusiveAnimation:isToggled()) end)
 
 local tglHalo = mainPage:newAction()
     :title("tgl halo")
