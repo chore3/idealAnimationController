@@ -2,7 +2,7 @@ vanilla_model.PLAYER:setVisible(false)
 vanilla_model.ARMOR:setVisible(false)
 vanilla_model.ELYTRA:setVisible(false)
 
-_G.modelAnimations = animations["examples.models.model"]
+_G.EXAMPLE_MODEL_ANIMATIONS = animations["examples.models.model"]
 
 -- ==================================================
 
@@ -45,12 +45,13 @@ require("./both")
 -- ==================================================
 
 function events.tick()
-    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates), exclusive)
+    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates),
+    exclusive)
     if exclusiveAnim == nil then
         exclusiveAnim = "idle"
     end
     for name, _ in pairs(exclusive) do
-        safeAnim.setPlayIfExists(modelAnimations, name, name == exclusiveAnim)
+        safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, name == exclusiveAnim)
     end
 
     safeAnim.setPlayIfExists(animations.skull, "skullAnim", true)

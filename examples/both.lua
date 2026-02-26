@@ -11,5 +11,5 @@ function pings.tglHalo(bool)
 end
 
 function pings.waveHand()
-    safeAnim.setPlayIfExists(modelAnimations, "nonExclusiveAnimation", true)
+    safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, "nonExclusiveAnimation", true)
 end
