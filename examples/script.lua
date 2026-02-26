@@ -18,12 +18,11 @@ local exclusive = {
     sprint = 4,
     swim = 5,
     climb = 6,
-    jump = 7,
-    fall = 8,
-    glide = 9,
-    riptide = 10,
-    sleep = 11,
-    dye = 12,
+    fall = 7,
+    glide = 8,
+    riptide = 9,
+    sleep = 10,
+    dye = 11,
 
     newExclusiveAnimation = 100
 }
@@ -34,7 +33,7 @@ _G.customStates = {
 
 if host:isHost() then require("./host") end
 require("./both")
--- require("src/onStateEvent")
+require("src/onStateEvent")
 
 -- ==================================================
 
