@@ -6,6 +6,6 @@
   ],
   "color": "#f8c53a",
   "autoScripts": [
-    "src/script"
+    "script"
   ]
 }
