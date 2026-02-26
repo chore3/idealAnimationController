@@ -2,6 +2,8 @@ vanilla_model.PLAYER:setVisible(false)
 vanilla_model.ARMOR:setVisible(false)
 vanilla_model.ELYTRA:setVisible(false)
 
+_G.modelAnimations = animations.model
+
 -- ==================================================
 
 local safeAnim = require("modules/safeAnim")
@@ -39,6 +41,6 @@ function events.tick()
         exclusiveAnim = "idle"
     end
     for name, _ in pairs(exclusive) do
-        safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
+        safeAnim.setPlayIfExists(modelAnimations, name, name == exclusiveAnim)
     end
 end
