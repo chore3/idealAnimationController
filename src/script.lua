@@ -36,7 +36,7 @@ _G.customStates = {
 
 if host:isHost() then require("./host") end
 require("./both")
--- require("src/onStateEvent")
+-- require("./onStateEvent")
 
 -- ==================================================
 
