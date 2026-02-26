@@ -1,3 +1,7 @@
+local safeAnim = require("modules/safeAnim")
+
+-- ==================================================
+
 stateHandler.onIdle(function()
     log("idle")
 end)
@@ -17,6 +21,7 @@ end)
 -- ==================================================
 
 stateHandler.onJump(function()
+    safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, "onJump", true)
     log("jump")
 end)
 
