@@ -12,8 +12,8 @@ local util = require("modules/util")
 -- [ここにstateHandler.statesで管理している「状態」を`状態の名称 = 優先度`のように追記すると「状態」が`true`のタイミングで同名のアニメーションを自動再生することができます。]
 -- [複数個の「状態」が同時に真(true)の場合、最も優先度の高い1つのみが再生されます。優先度の数値が大きいものほど優先的に再生されます。]
 -- [利用可能な「状態」はREADME.mdか`log(stateHandler.states)`を実行することで確認できます。]
--- [また、`exclusive`と`customStates`の両方に任意の名称で「状態」を追記することで`stateHandler.states`の役割を拡張することができます。]
-local exclusive = {
+-- [また、`exclusiveAnimationsMap`と`customStates`の両方に任意の名称で「状態」を追記することで`stateHandler.states`の役割を拡張することができます。]
+local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
     walk = 2,
@@ -41,11 +41,12 @@ require("./both")
 -- ==================================================
 
 function events.tick()
-    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates), exclusive)
+    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates),
+        exclusiveAnimationsMap)
     if exclusiveAnim == nil then
         exclusiveAnim = "idle"
     end
-    for name, _ in pairs(exclusive) do
+    for name, _ in pairs(exclusiveAnimationsMap) do
         safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
     end
 end

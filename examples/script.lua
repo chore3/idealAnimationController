@@ -10,7 +10,7 @@ local safeAnim = require("modules/safeAnim")
 _G.stateHandler = require("modules/stateHandler")
 local util = require("modules/util")
 
-local exclusive = {
+local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
     walk = 2,
@@ -39,11 +39,11 @@ require("./onStateEvent")
 
 function events.tick()
     local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates),
-    exclusive)
+        exclusiveAnimationsMap)
     if exclusiveAnim == nil then
         exclusiveAnim = "idle"
     end
-    for name, _ in pairs(exclusive) do
+    for name, _ in pairs(exclusiveAnimationsMap) do
         safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, name == exclusiveAnim)
     end
 
