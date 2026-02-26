@@ -64,14 +64,14 @@ end
 -- host
 local hostStates = {
     jump = { prev = false, current = false, getter = function() end },
-    chat = { prev = false, current = false, getter = function()  end },
+    chat = { prev = false, current = false, getter = function() end },
     inventory = { prev = false, current = false, getter = function() return host:isContainerOpen() end },
     flying = { prev = false, current = false, getter = function() return host:isFlying() end },
 }
-hostStates.jump.getter = function ()
+hostStates.jump.getter = function()
     return host:isJumping() and not host:isFlying() and not getCurrent("glide") and not getCurrent("swim")
 end
-hostStates.chat.getter = function ()
+hostStates.chat.getter = function()
     if not player:isLoaded() then
         return hostStates.chat.prev
     end
