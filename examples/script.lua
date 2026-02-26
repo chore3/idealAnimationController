@@ -2,7 +2,7 @@ vanilla_model.PLAYER:setVisible(false)
 vanilla_model.ARMOR:setVisible(false)
 vanilla_model.ELYTRA:setVisible(false)
 
-_G.modelAnimations = animations.model
+_G.modelAnimations = animations["examples.models.model"]
 
 -- ==================================================
 
