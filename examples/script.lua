@@ -36,8 +36,8 @@ _G.customStates = {
     newExclusiveAnimation = false
 }
 
-if host:isHost() then require("src/host") end
-require("src/both")
+if host:isHost() then require("./host") end
+require("./both")
 -- require("src/onStateEvent")
 
 -- ==================================================
