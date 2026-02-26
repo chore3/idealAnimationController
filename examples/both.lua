@@ -7,7 +7,7 @@ function pings.tglNewExclusiveAnimation(bool)
 end
 
 function pings.tglHalo(bool)
-    models.model.Halo:setVisible(bool)
+    models.examples.models.model.Halo:setVisible(bool)
 end
 
 function pings.waveHand()
