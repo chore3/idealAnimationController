@@ -28,7 +28,7 @@ local states = {
     riptide = false,
     sleep = false,
     flying = false,
-    dye = false,
+    die = false,
     glow = false
 }
 
@@ -128,7 +128,7 @@ function events.tick()
     setState("drink", isDrinking)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
     setState("sleep", isSleeping)
-    setState("dye", safePose == "DYING")
+    setState("die", safePose == "DYING")
     setState("glow", isPlayerLoaded and player:isGlowing() or false)
 
     local allOthersFalse = true

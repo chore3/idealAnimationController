@@ -25,7 +25,7 @@ local exclusiveAnimationsMap = {
     glide = 8,
     riptide = 9,
     sleep = 10,
-    dye = 11
+    die = 11
 }
 
 -- # 「状態」の追加
