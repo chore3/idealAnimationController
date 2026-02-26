@@ -87,8 +87,8 @@ stateHandler.onFlying(function()
     log("flying")
 end)
 
-stateHandler.onDye(function()
-    log("dye")
+stateHandler.onDie(function()
+    log("die")
 end)
 
 stateHandler.onGlow(function()
