@@ -5,12 +5,7 @@ local safeAnim = require("modules/safeAnim")
 -- ==================================================
 
 function util.countChildren(root)
-    local table = root:getChildren()
-    local count = 0
-    for i, item in ipairs(table) do
-        count = count + 1
-    end
-    return count
+    return #root:getChildren()
 end
 
 function util.showModelPartAtIndex(root, index)
