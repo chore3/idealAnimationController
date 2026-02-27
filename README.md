@@ -32,7 +32,7 @@
 例えば、プレイヤーが「釣り」をしながら「走っている」場合、アニメーション`sprint`と`fishing`の両方が再生される条件を満たしますが、デフォルト状態では`fishing`よりも`sprint`の方が優先度が高いため`sprint`のみが再生されます。排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。いくつか変更例を見てみましょう。
 
 クリエイティブモードの飛行時のみ異なるアニメーションを再生する場合は`flying`を追加します。
-```
+```lua
 local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
@@ -55,7 +55,7 @@ local exclusiveAnimationsMap = {
 また、stateHandlerモジュールで管理していない独自の「状態」を追加することもできます。独自の状態を利用するには、`customStates`に新たな「状態」を追記してください。`customStates`に入力した状態はstateHandlerモジュールで管理している「状態」と同様に`exclusiveAnimationsMap`に名称と優先度を入力することで自動再生できます。
 
 例えば、`newExclusiveAnimation`を新たに排他的なアニメーションとして追加する場合、以下のようにします。
-```
+```lua
 local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
@@ -84,7 +84,7 @@ _G.customStates = {
 ## イベントハンドラ
 stateHandlerモジュールで管理している「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
 
-```
+```lua
 stateHandler.on<状態名>
 ```
 
@@ -95,7 +95,7 @@ stateHandler.on<状態名>
 
 例えば、デフォルトのプログラムでは、プレイヤーがジャンプした瞬間にだけ`onJump`というアニメーションを再生するために、以下のようなイベントハンドラを利用しています。
 
-```
+```lua
 stateHandler.onJump(function()
     safeAnim.setPlayIfExists(animations.model, "onJump", true)
 end)
@@ -112,7 +112,7 @@ stateHandlerは、Host/Client間を同期しながらプレイヤーの状態を
 </br>
 
 このモジュールは以下のようにして読み込むことができます。
-```
+```lua
 stateHandler = require("modules/stateHandler")
 ```
 
@@ -144,7 +144,7 @@ stateHandlerは以下の状態を保持します。
 | `glow` | `isGlow()` | `onGlow()` | 発光エフェクトが付与されている状態 |
 
 状態取得関数は現在の「状態」を返す関数です。
-```
+```lua
 stateHandler.isWalk()
 ```
 
@@ -156,7 +156,7 @@ stateHandler.isWalk()
 
 イベントハンドラは「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。以下の実装例のように引数として関数を渡すことでイベントの発火時に任意の関数を実行できます。
 
-```
+```lua
 stateHandler.onJump(function()
     safeAnim.setPlayIfExists(animations.model, "onJump", true)
 end)
@@ -373,6 +373,7 @@ local randomPos = util.randomBoxPos(-0.02, 0.02):add(0, -0.1, 0)
 particles:newParticle("flame", models.model.root.Body.Jetpack.leftEngine:partToWorldMatrix():apply():add(randomPos)):setVelocity(0, -0.1, 0):setLifetime(5)
 ```
 
+---
 
 # ⚖️ライセンス
 see [LICENCE](./LICENCE.md).
