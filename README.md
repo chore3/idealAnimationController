@@ -104,6 +104,45 @@ end)
 ---
 
 # 🛠️モジュール
+## stateHandler
+stateHandlerは、Host/Client間を同期しながらプレイヤーの状態を管理、保持するモジュールです。また、このモジュールは状態遷移に基づくイベント処理を提供します。
+
+このモジュールは以下のようにして読み込むことができます。
+```
+stateHandler = require("modules/stateHandler")
+```
+
+stateHandlerは以下の状態を保持します。
+
+| 状態名 | 状態取得関数 | イベントハンドラ | 説明 |
+| :-- | :-- | :-- | :-- |
+| `idle` | `isIdle()` | `onIdle()` | 他のすべての状態が `false` のときに自動的に `true` になる待機状態 |
+| `walk` | `isWalk()` | `onWalk()` | `sprint` ではないが、地上またはクリエ飛行中に移動している状態 |
+| `crouch` | `isCrouch()` | `onCrouch()` | スニーク状態 |
+| `sprint` | `isSprint()` | `onSprint()` | 地上またはクリエ飛行中に走っている状態 |
+| `jump` | `isJump()` | `onJump()` | ジャンプ動作中 |
+| `fall` | `isFall()` | `onFall()` | 空中にいて、下降速度が一定以上ある状態 |
+| `swim` | `isSwim()` | `onSwim()` | 泳ぎ姿勢の状態 |
+| `climb` | `isClimb()` | `onClimb()` | はしご・ツタなどを登っている状態 |
+| `glide` | `isGlide()` | `onGlide()` | エリトラ滑空中 |
+| `flying` | `isFlying()` | `onFlying()` | クリエイティブ飛行中 |
+| `block` | `isBlock()` | `onBlock()` | 盾で防御している状態 |
+| `chat` | `isChat()` | `onChat()` | チャット画面を開いている状態 |
+| `inventory` | `isInventory()` | `onInventory()` | 何かしらのインベントリを開いている状態 |
+| `inRain` | `isInRain()` | `onInRain()` | 雨に当たっている状態 |
+| `burn` | `isBurn()` | `onBurn()` | 燃えている状態 |
+| `fishing` | `isFishing()` | `onFishing()` | 釣り竿を使用しているとき |
+| `eat` | `isEat()` | `onEat()` | 食べ物を使用中の状態 |
+| `drink` | `isDrink()` | `onDrink()` | 飲み物を使用中の状態 |
+| `riptide` | `isRiptide()` | `onRiptide()` | トライデントの激流エンチャントで回転移動中 |
+| `sleep` | `isSleep()` | `onSleep()` | ベッドで寝ている状態 |
+| `die` | `isDie()` | `onDie()` | 死亡アニメーション中 |
+| `glow` | `isGlow()` | `onGlow()` | 発光エフェクトが付与されている状態 |
+
+また、このモジュールは `stateHandler.states` というテーブルを提供します。このテーブルを使うと現在の状態を外部から参照できます。`stateHandler.states`は、内部で管理されている値のコピーであるためこのテーブルを直接変更しても内部状態には一切影響しません。
+
+このテーブルの各要素は、対応する状態取得関数と同じ値を返します。例えば、`stateHandler.states.walk`と`stateHandler.isWalk()`は常に同じ結果を返します。
+
 ## safeAnim
 指定したアニメーションが存在する場合にのみ再生を試みるAnimationのラッパー関数です。FiguraMODのAnimationの代わりに利用することで存在しないアニメーション参照した場合に起こるエラーを防ぐことができます。
 
@@ -122,7 +161,7 @@ playIfExists(model, name)
 **引数:**
 | 名称 | 型 |　説明 |
 | --- | -- | :--- |
-| `model` | Table | アニメーションを再生したいモデルまでのパス |
+| `model` | Animation | アニメーションを再生したいモデルまでのパス |
 | `name` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 再生したいアニメーション名 |
 
 **戻り値:**
