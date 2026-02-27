@@ -32,7 +32,7 @@
 例えば、プレイヤーが「釣り」をしながら「走っている」場合、アニメーション`sprint`と`fishing`の両方が再生される条件を満たしますが、デフォルト状態では`fishing`よりも`sprint`の方が優先度が高いため`sprint`のみが再生されます。排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。いくつか変更例を見てみましょう。
 
 クリエイティブモードの飛行時のみ異なるアニメーションを再生する場合は`flying`を追加します。
-```
+```lua
 local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
@@ -55,7 +55,7 @@ local exclusiveAnimationsMap = {
 また、stateHandlerモジュールで管理していない独自の「状態」を追加することもできます。独自の状態を利用するには、`customStates`に新たな「状態」を追記してください。`customStates`に入力した状態はstateHandlerモジュールで管理している「状態」と同様に`exclusiveAnimationsMap`に名称と優先度を入力することで自動再生できます。
 
 例えば、`newExclusiveAnimation`を新たに排他的なアニメーションとして追加する場合、以下のようにします。
-```
+```lua
 local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
@@ -79,10 +79,12 @@ _G.customStates = {
 ```
 `newExclusiveAnimation`は100であり、これは他のどの「状態」よりも高い優先度であるため、アクションホイールなどで`customStates.newExclusiveAnimation = true`のようにして`newExclusiveAnimation`の状態を真(true)にした場合、常に`newExclusiveAnimation`という名称のアニメーションが再生されます。
 
+</br>
+
 ## イベントハンドラ
 stateHandlerモジュールで管理している「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
 
-```
+```lua
 stateHandler.on<状態名>
 ```
 
@@ -93,7 +95,7 @@ stateHandler.on<状態名>
 
 例えば、デフォルトのプログラムでは、プレイヤーがジャンプした瞬間にだけ`onJump`というアニメーションを再生するために、以下のようなイベントハンドラを利用しています。
 
-```
+```lua
 stateHandler.onJump(function()
     safeAnim.setPlayIfExists(animations.model, "onJump", true)
 end)
@@ -107,8 +109,10 @@ end)
 ## stateHandler
 stateHandlerは、Host/Client間を同期しながらプレイヤーの状態を管理、保持するモジュールです。また、このモジュールは状態遷移に基づくイベント処理を提供します。
 
+</br>
+
 このモジュールは以下のようにして読み込むことができます。
-```
+```lua
 stateHandler = require("modules/stateHandler")
 ```
 
@@ -140,7 +144,7 @@ stateHandlerは以下の状態を保持します。
 | `glow` | `isGlow()` | `onGlow()` | 発光エフェクトが付与されている状態 |
 
 状態取得関数は現在の「状態」を返す関数です。
-```
+```lua
 stateHandler.isWalk()
 ```
 
@@ -148,9 +152,11 @@ stateHandler.isWalk()
 
 このテーブルの各要素は、対応する状態取得関数と同じ値を返します。例えば、`stateHandler.states.walk`と`stateHandler.isWalk()`は常に同じ結果を返します。
 
+</br>
+
 イベントハンドラは「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。以下の実装例のように引数として関数を渡すことでイベントの発火時に任意の関数を実行できます。
 
-```
+```lua
 stateHandler.onJump(function()
     safeAnim.setPlayIfExists(animations.model, "onJump", true)
 end)
@@ -179,9 +185,9 @@ isExists(model, name)
 | `name` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 再生したいアニメーション名 |
 
 **戻り値:**
-| 名称 | 型 |　説明 |
-| --- | -- | :--- |
-| `bool` | [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | - |
+| 型 |　説明 |
+| --- | :--- |
+| [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | - |
 
 **使用例:**
 `myModel.animation == myAnim`である場合、
@@ -189,7 +195,7 @@ isExists(model, name)
 safeAnim.isExists(myModel, "animation")
 ```
 
-<br>
+---
 
 ### `playIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
@@ -212,7 +218,7 @@ playIfExists(model, name)
 safeAnim.restartIfExists(myModel, "walk")
 ```
 
-<br>
+---
 
 ### `setPlayIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
@@ -242,6 +248,132 @@ safeAnim.setPlayIfExists(myModel, "animation", crouching)
 
 ## util
 汎用的な関数を提供します。
+
+</br>
+
+### `countChildren()`
+`root`が持つ子の数を返します。
+```lua
+countChildren(root)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `root` | [Models](https://figura-wiki.pages.dev/globals/Models) | モデルツリー内のノード |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [Integer](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | - |
+
+---
+
+### `showModelPartAtIndex()`
+`root`が持つ`index`番目の子を表示します。
+```lua
+showModelPartAtIndex(root, index)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `root` | [Models](https://figura-wiki.pages.dev/globals/Models) | モデルツリー内のノード |
+| `index` | [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | 表示する子のインデックス |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | 表示が成功したか |
+
+---
+
+### `hideAllChildren()`
+`root`が持つすべての子ノードを非表示にします。
+```lua
+hideAllChildren(root)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `root` | [Models](https://figura-wiki.pages.dev/globals/Models) | モデルツリー内のノード |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [Integer](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | 非表示にした子ノードの個数 |
+
+**使用例:**
+```lua
+hats = models.model.root.Head.Hats
+local currHat = 1
+pings.changeHat(currHat)
+
+local maxHat = util.countChildren(hats)
+
+local hatAction = mainPage:newAction()
+    :title(string.format("選択中の帽子[%d]", currHat))
+    :item("minecraft:compass")
+hatAction:setOnLeftClick(function()
+    currHat = currHat + 1
+
+    if maxHat < currHat then
+        currHat = 0
+    elseif currHat < 0 then
+        currHat = maxHat
+    end
+
+    pings.changeHat(currHat)
+    hatAction:setTitle(string.format("選択中の帽子[%d]", currHat))
+end)
+
+function pings.changeHat(state)
+    util.hideAllChildren(hats)
+    util.showModelPartAtIndex(hats, state)
+    vanilla_model.HELMET:setVisible(state == 0)
+    both.currHat = state
+end
+```
+
+---
+
+### `mergeTable()`
+二つのテーブルを統合します。
+```lua
+mergeTable(t1, t2)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `t1` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | - |
+| `t2` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | - |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+[Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | - |
+
+---
+
+### `randomBoxPos()`
+指定した範囲内のランダムな3次元座標を返します。
+```lua
+randomBoxPos(min, max)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `min` | [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | X, Y, Z座標の最小範囲 |
+| `max` | [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | X, Y, Z座標の最大範囲 |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+[Vector3](https://figura-wiki.pages.dev/globals/Vectors/Vector3) | - |
+
+**使用例:**
+```lua
+local randomPos = util.randomBoxPos(-0.02, 0.02):add(0, -0.1, 0)
+particles:newParticle("flame", models.model.root.Body.Jetpack.leftEngine:partToWorldMatrix():apply():add(randomPos)):setVelocity(0, -0.1, 0):setLifetime(5)
+```
 
 ---
 
