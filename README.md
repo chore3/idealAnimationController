@@ -50,7 +50,7 @@ local exclusiveAnimationsMap = {
     flying = 12
 }
 ```
-`idle`, `fishing`そして`flying`のように事前に定義されている「状態」は`stateHandler`というモジュールで管理されています。すべての「状態」については次章を参照してください。
+`idle`, `fishing`そして`flying`のように事前に定義されている「状態」は`stateHandler`というモジュールで管理されています。すべての「状態」については「モジュール/stateHandler」を参照してください。
 
 また、stateHandlerモジュールで管理していない独自の「状態」を追加することもできます。独自の状態を利用するには、`customStates`に新たな「状態」を追記してください。`customStates`に入力した状態はstateHandlerモジュールで管理している「状態」と同様に`exclusiveAnimationsMap`に名称と優先度を入力することで自動再生できます。
 
@@ -80,7 +80,7 @@ _G.customStates = {
 `newExclusiveAnimation`は100であり、これは他のどの「状態」よりも高い優先度であるため、アクションホイールなどで`customStates.newExclusiveAnimation = true`のようにして`newExclusiveAnimation`の状態を真(true)にした場合、常に`newExclusiveAnimation`という名称のアニメーションが再生されます。
 
 ## イベントハンドラ
-stateHandlerモジュールで管理している「状態」が真(true)に変化した瞬間だけ実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
+stateHandlerモジュールで管理している「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
 
 ```
 stateHandler.on<状態名>
@@ -99,7 +99,7 @@ stateHandler.onJump(function()
 end)
 ```
 
-すべてのイベントハンドラについては次章を参照してください。
+すべてのイベントハンドラについては「モジュール/stateHandler」を参照してください。
 
 ---
 
@@ -139,9 +139,24 @@ stateHandlerは以下の状態を保持します。
 | `die` | `isDie()` | `onDie()` | 死亡アニメーション中 |
 | `glow` | `isGlow()` | `onGlow()` | 発光エフェクトが付与されている状態 |
 
+状態取得関数は現在の「状態」を返す関数です。
+```
+stateHandler.isWalk()
+```
+
 また、このモジュールは `stateHandler.states` というテーブルを提供します。このテーブルを使うと現在の状態を外部から参照できます。`stateHandler.states`は、内部で管理されている値のコピーであるためこのテーブルを直接変更しても内部状態には一切影響しません。
 
 このテーブルの各要素は、対応する状態取得関数と同じ値を返します。例えば、`stateHandler.states.walk`と`stateHandler.isWalk()`は常に同じ結果を返します。
+
+イベントハンドラは「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。以下の実装例のように引数として関数を渡すことでイベントの発火時に任意の関数を実行できます。
+
+```
+stateHandler.onJump(function()
+    safeAnim.setPlayIfExists(animations.model, "onJump", true)
+end)
+```
+
+---
 
 ## safeAnim
 指定したアニメーションが存在する場合にのみ再生を試みるAnimationのラッパー関数を提供するモジュールです。FiguraMODのAnimation APIの代わりに利用することで存在しないアニメーション参照した場合に起こるエラーを防ぐことができます。
@@ -150,7 +165,8 @@ stateHandlerは以下の状態を保持します。
 https://figura-wiki.pages.dev/globals/Animations/Animation
 を参照してください。
 
----
+</br>
+
 ### `isExists()`
 アニメーションが存在するかどうかを確認します。
 ```lua
@@ -173,6 +189,8 @@ isExists(model, name)
 safeAnim.isExists(myModel, "animation")
 ```
 
+<br>
+
 ### `playIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
 [play()](https://figura-wiki.pages.dev/globals/Animations/Animation#play) のラッパー関数です。
@@ -194,7 +212,7 @@ playIfExists(model, name)
 safeAnim.restartIfExists(myModel, "walk")
 ```
 
----
+<br>
 
 ### `setPlayIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
@@ -219,6 +237,13 @@ setPlayIfExists(model, name)
 local crouching = player:getPose() == "CROUCHING"
 safeAnim.setPlayIfExists(myModel, "animation", crouching)
 ```
+
+---
+
+## util
+汎用的な関数を提供します。
+
+---
 
 # ⚖️ライセンス
 see [LICENCE](./LICENCE.md).
