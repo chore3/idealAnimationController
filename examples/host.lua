@@ -1,11 +1,7 @@
--- # Host
--- [host(アバターの所有者)側でのみ実行されるファイルです。]
--- [アクションホイールの実行はHost側でのみ行われます。]
-
--- ==================================================
-
 local mainPage = action_wheel:newPage()
 action_wheel:setPage(mainPage)
+
+-- ==================================================
 
 local tglNewExclusiveAnimation = mainPage:newAction()
     :title("newExclusiveAnimation")

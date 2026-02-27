@@ -28,7 +28,7 @@ local states = {
     riptide = false,
     sleep = false,
     flying = false,
-    dye = false,
+    die = false,
     glow = false
 }
 
@@ -64,14 +64,14 @@ end
 -- host
 local hostStates = {
     jump = { prev = false, current = false, getter = function() end },
-    chat = { prev = false, current = false, getter = function()  end },
+    chat = { prev = false, current = false, getter = function() end },
     inventory = { prev = false, current = false, getter = function() return host:isContainerOpen() end },
     flying = { prev = false, current = false, getter = function() return host:isFlying() end },
 }
-hostStates.jump.getter = function ()
+hostStates.jump.getter = function()
     return host:isJumping() and not host:isFlying() and not getCurrent("glide") and not getCurrent("swim")
 end
-hostStates.chat.getter = function ()
+hostStates.chat.getter = function()
     if not player:isLoaded() then
         return hostStates.chat.prev
     end
@@ -128,7 +128,7 @@ function events.tick()
     setState("drink", isDrinking)
     setState("riptide", isPlayerLoaded and player:riptideSpinning() or false)
     setState("sleep", isSleeping)
-    setState("dye", safePose == "DYING")
+    setState("die", safePose == "DYING")
     setState("glow", isPlayerLoaded and player:isGlowing() or false)
 
     local allOthersFalse = true

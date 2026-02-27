@@ -1,6 +1,6 @@
--- # ステートイベント
--- [stateHandler.statesの値がtrueになった瞬間のみ実行される関数です。]
--- [script.lua内の`require("src/onStateEvent")`のコメントアウト(-- )を削除することで動作を確認できます。]
+local safeAnim = require("modules/safeAnim")
+
+-- ==================================================
 
 stateHandler.onIdle(function()
     log("idle")
@@ -21,6 +21,7 @@ end)
 -- ==================================================
 
 stateHandler.onJump(function()
+    safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, "onJump", true)
     log("jump")
 end)
 
@@ -86,8 +87,8 @@ stateHandler.onFlying(function()
     log("flying")
 end)
 
-stateHandler.onDye(function()
-    log("dye")
+stateHandler.onDie(function()
+    log("die")
 end)
 
 stateHandler.onGlow(function()
