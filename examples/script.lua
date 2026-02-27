@@ -13,9 +13,9 @@ local util = require("modules/util")
 local exclusiveAnimationsMap = {
     idle = 0,
     fishing = 1,
-    walk = 2,
-    crouch = 3,
-    sprint = 4,
+    sprint = 2,
+    walk = 3,
+    crouch = 4,
     swim = 5,
     climb = 6,
     fall = 7,
@@ -38,7 +38,8 @@ require("./onStateEvent")
 -- ==================================================
 
 function events.tick()
-    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates),
+    local exclusiveAnim = util.getHighestPriorityActivePlayableState(EXAMPLE_MODEL_ANIMATIONS,
+        util.mergeTable(stateHandler.states, customStates),
         exclusiveAnimationsMap)
     if exclusiveAnim == nil then
         exclusiveAnim = "idle"
