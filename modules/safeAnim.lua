@@ -4,6 +4,7 @@ function safeAnim.isExists(model, name)
     if model then
         return model[name] ~= nil
     end
+    return false
 end
 
 -- Play/Stop
