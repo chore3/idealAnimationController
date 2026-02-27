@@ -28,7 +28,7 @@
 
 # 📌機能
 ## アニメーションの自動再生
-デフォルト状態で自動再生されるアニメーションは以下の通りです。
+デフォルトのプログラムではBlockbench内で以下の名称で作成したアニメーションが「状態」の変化に合わせて自動的に再生されます。
 | 名称 | 説明 | 排他的 | 優先度 | 推奨ループモード |
 | :-- | :-- | :-: | :-- | :-- |
 | `idle` | 何もせずに立っているときに再生されます | ○ | 0 | ループ |
@@ -45,12 +45,13 @@
 | `die` | 死亡時に再生されます | ○ | 11 | ループ |
 | `onJump` | ジャンプしたときに再生されます | × | - | 一回のみ |
 
-
 複数の「排他的」なアニメーションが再生されるべき状態にある場合、最も優先度の高い1つのみが再生されます。
 
-例えば、プレイヤーが「釣り」をしながら「走っている」場合、アニメーション`sprint`と`fishing`の両方が再生される条件を満たしますが、デフォルト状態では`fishing`よりも`sprint`の方が優先度が高いため`sprint`のみが再生されます。排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。いくつか変更例を見てみましょう。
+例えば、プレイヤーが「釣り」をしながら「走っている」場合、アニメーション`sprint`と`fishing`の両方が再生される条件を満たしますが、デフォルト状態では`fishing`よりも`sprint`の方が優先度が高いため`sprint`のみが再生されます。
 
-クリエイティブモードの飛行時のみ異なるアニメーションを再生する場合は`flying`を追加します。
+<br>
+
+排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。いくつか変更例を見てみましょう。クリエイティブモードの飛行時のみ異なるアニメーションを再生する場合は`flying`を追加します。
 ```lua
 local exclusiveAnimationsMap = {
     idle = 0,
@@ -70,6 +71,8 @@ local exclusiveAnimationsMap = {
 }
 ```
 `idle`, `fishing`そして`flying`のように事前に定義されている「状態」は`stateHandler`というモジュールで管理されています。すべての「状態」については「モジュール/stateHandler」を参照してください。
+
+<br>
 
 また、stateHandlerモジュールで管理していない独自の「状態」を追加することもできます。独自の状態を利用するには、`customStates`に新たな「状態」を追記してください。`customStates`に入力した状態はstateHandlerモジュールで管理している「状態」と同様に`exclusiveAnimationsMap`に名称と優先度を入力することで自動再生できます。
 
@@ -125,6 +128,7 @@ end)
 ---
 
 # 🛠️モジュール
+このプロジェクトでは、処理を分かりやすく整理するために機能ごとに分けた「モジュール」を使用しています。
 ## stateHandler
 stateHandlerは、Host/Client間を同期しながらプレイヤーの状態を管理、保持するモジュールです。また、このモジュールは状態遷移に基づくイベント処理を提供します。
 
@@ -189,6 +193,13 @@ end)
 提供する関数はAnimation APIとほとんど変わらないため、すべての関数についてのwikiは用意していません。Figura MODのAnimationについては、
 https://figura-wiki.pages.dev/globals/Animations/Animation
 を参照してください。
+
+</br>
+
+このモジュールは以下のようにして読み込むことができます。
+```lua
+safeAnim = require("modules/safeAnim")
+```
 
 </br>
 
@@ -267,6 +278,13 @@ safeAnim.setPlayIfExists(myModel, "animation", crouching)
 
 ## util
 汎用的な関数を提供します。
+
+</br>
+
+このモジュールは以下のようにして読み込むことができます。
+```lua
+util = require("modules/util")
+```
 
 </br>
 
