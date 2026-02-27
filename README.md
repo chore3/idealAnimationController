@@ -144,15 +144,36 @@ stateHandlerは以下の状態を保持します。
 このテーブルの各要素は、対応する状態取得関数と同じ値を返します。例えば、`stateHandler.states.walk`と`stateHandler.isWalk()`は常に同じ結果を返します。
 
 ## safeAnim
-指定したアニメーションが存在する場合にのみ再生を試みるAnimationのラッパー関数です。FiguraMODのAnimationの代わりに利用することで存在しないアニメーション参照した場合に起こるエラーを防ぐことができます。
+指定したアニメーションが存在する場合にのみ再生を試みるAnimationのラッパー関数を提供するモジュールです。FiguraMODのAnimation APIの代わりに利用することで存在しないアニメーション参照した場合に起こるエラーを防ぐことができます。
 
-利用方法はほとんど変わらないため、すべての関数についてのwikiは用意していません。Figura MODのAnimationについては、
+提供する関数はAnimation APIとほとんど変わらないため、すべての関数についてのwikiは用意していません。Figura MODのAnimationについては、
 https://figura-wiki.pages.dev/globals/Animations/Animation
 を参照してください。
 
 ---
+### `isExists()`
+アニメーションが存在するかどうかを確認します。
+```lua
+isExists(model, name)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `model` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | アニメーションを再生したいモデルまでのパス |
+| `name` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 再生したいアニメーション名 |
 
-### `playIfExists`
+**戻り値:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `bool` | [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | - |
+
+**使用例:**
+`myModel.animation == myAnim`である場合、
+```lua
+safeAnim.isExists(myModel, "animation")
+```
+
+### `playIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
 [play()](https://figura-wiki.pages.dev/globals/Animations/Animation#play) のラッパー関数です。
 ```lua
@@ -161,7 +182,7 @@ playIfExists(model, name)
 **引数:**
 | 名称 | 型 |　説明 |
 | --- | -- | :--- |
-| `model` | Animation | アニメーションを再生したいモデルまでのパス |
+| `model` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | アニメーションを再生したいモデルまでのパス |
 | `name` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 再生したいアニメーション名 |
 
 **戻り値:**
@@ -170,12 +191,12 @@ playIfExists(model, name)
 **使用例:**
 `myModel.animation == myAnim`である場合、
 ```lua
-safeAnim.restartIfExists(myModel, "animation")
+safeAnim.restartIfExists(myModel, "walk")
 ```
 
 ---
 
-### `setPlayIfExists`
+### `setPlayIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
 [setPlaying()](https://figura-wiki.pages.dev/globals/Animations/Animation#setPlaying) のラッパー関数です。
 ```lua
@@ -184,7 +205,7 @@ setPlayIfExists(model, name)
 **引数:**
 | 名称 | 型 |　説明 |
 | --- | -- | :--- |
-| `model` | Table | アニメーションを再生したいモデルまでのパス |
+| `model` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | アニメーションを再生したいモデルまでのパス |
 | `name` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 再生したいアニメーション名 |
 | `bool` | [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | trueの場合アニメーションを再生、falseの場合アニメーションを停止 |
 
