@@ -79,6 +79,8 @@ _G.customStates = {
 ```
 `newExclusiveAnimation`は100であり、これは他のどの「状態」よりも高い優先度であるため、アクションホイールなどで`customStates.newExclusiveAnimation = true`のようにして`newExclusiveAnimation`の状態を真(true)にした場合、常に`newExclusiveAnimation`という名称のアニメーションが再生されます。
 
+</br>
+
 ## イベントハンドラ
 stateHandlerモジュールで管理している「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
 
@@ -106,6 +108,8 @@ end)
 # 🛠️モジュール
 ## stateHandler
 stateHandlerは、Host/Client間を同期しながらプレイヤーの状態を管理、保持するモジュールです。また、このモジュールは状態遷移に基づくイベント処理を提供します。
+
+</br>
 
 このモジュールは以下のようにして読み込むことができます。
 ```
@@ -148,6 +152,8 @@ stateHandler.isWalk()
 
 このテーブルの各要素は、対応する状態取得関数と同じ値を返します。例えば、`stateHandler.states.walk`と`stateHandler.isWalk()`は常に同じ結果を返します。
 
+</br>
+
 イベントハンドラは「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。以下の実装例のように引数として関数を渡すことでイベントの発火時に任意の関数を実行できます。
 
 ```
@@ -179,9 +185,9 @@ isExists(model, name)
 | `name` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 再生したいアニメーション名 |
 
 **戻り値:**
-| 名称 | 型 |　説明 |
-| --- | -- | :--- |
-| `bool` | [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | - |
+| 型 |　説明 |
+| --- | :--- |
+| [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | - |
 
 **使用例:**
 `myModel.animation == myAnim`である場合、
@@ -189,7 +195,7 @@ isExists(model, name)
 safeAnim.isExists(myModel, "animation")
 ```
 
-<br>
+---
 
 ### `playIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
@@ -212,7 +218,7 @@ playIfExists(model, name)
 safeAnim.restartIfExists(myModel, "walk")
 ```
 
-<br>
+---
 
 ### `setPlayIfExists()`
 アニメーションを再生します。一時停止されていた場合、アニメーションを再開します。
@@ -242,6 +248,88 @@ safeAnim.setPlayIfExists(myModel, "animation", crouching)
 
 ## util
 汎用的な関数を提供します。
+
+</br>
+
+### `countChildren()`
+`root`が持つ子の数を返します。
+```lua
+countChildren(root)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `root` | [Models](https://figura-wiki.pages.dev/globals/Models) | モデルツリー内のノード |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | - |
+
+---
+
+### `showModelPartAtIndex()`
+`root`が持つ`index`番目の子を表示します。
+```lua
+showModelPartAtIndex(root, index)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `root` | [Models](https://figura-wiki.pages.dev/globals/Models) | モデルツリー内のノード |
+| `index` | [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | 表示する子のインデックス |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [Boolean](https://figura-wiki.pages.dev/tutorials/types/Booleans) | 表示が成功したか |
+
+---
+
+### `hideAllChildren()`
+`root`が持つすべての子ノードを非表示にします。
+```lua
+hideAllChildren(root)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `root` | [Models](https://figura-wiki.pages.dev/globals/Models) | モデルツリー内のノード |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | 非表示にした子ノードの個数 |
+
+**使用例:**
+```lua
+hats = models.model.root.Head.Hats
+
+local maxHat = util.countChildren(hats)
+
+local hatAction = mainPage:newAction()
+    :title(string.format("選択中の帽子[%d]", currHat))
+    :item("minecraft:compass")
+hatAction:setOnLeftClick(function()
+    currHat = currHat + 1
+
+    if maxHat < currHat then
+        currHat = 0
+    elseif currHat < 0 then
+        currHat = maxHat
+    end
+
+    pings.changeHat(currHat)
+    hatAction:setTitle(string.format("選択中の帽子[%d]", currHat))
+end)
+
+function pings.changeHat(state)
+    util.hideAllChildren(hats)
+    util.showModelPartAtIndex(hats, state)
+    vanilla_model.HELMET:setVisible(state == 0)
+    both.currHat = state
+end
+```
 
 ---
 
