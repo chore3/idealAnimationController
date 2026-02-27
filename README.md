@@ -304,6 +304,8 @@ hideAllChildren(root)
 **使用例:**
 ```lua
 hats = models.model.root.Head.Hats
+local currHat = 1
+pings.changeHat(currHat)
 
 local maxHat = util.countChildren(hats)
 
