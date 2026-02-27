@@ -4,6 +4,7 @@ function safeAnim.isExists(model, name)
     if model then
         return model[name] ~= nil
     end
+    return false
 end
 
 -- Play/Stop
@@ -75,7 +76,7 @@ end
 function safeAnim.setSpeedIfExists(model, name, speed)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setSpeed(speed)
+        return anim:setSpeed(speed)
     end
 end
 
@@ -89,7 +90,7 @@ end
 function safeAnim.setLengthIfExists(model, name, length)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setLength(length)
+        return anim:setLength(length)
     end
 end
 
@@ -103,7 +104,7 @@ end
 function safeAnim.setPriorityIfExists(model, name, priority)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setPriority(priority)
+        return anim:setPriority(priority)
     end
 end
 
@@ -117,7 +118,7 @@ end
 function safeAnim.setTimeIfExists(model, name, time)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setTime(time)
+        return anim:setTime(time)
     end
 end
 
@@ -131,7 +132,7 @@ end
 function safeAnim.setOffsetIfExists(model, name, offset)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setOffset(offset)
+        return anim:setOffset(offset)
     end
 end
 
@@ -145,7 +146,7 @@ end
 function safeAnim.setLoopIfExists(model, name, loop)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setLoop(loop)
+        return anim:setLoop(loop)
     end
 end
 
@@ -159,7 +160,7 @@ end
 function safeAnim.setBlendIfExists(model, name, blend)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setBlend(blend)
+        return anim:setBlend(blend)
     end
 end
 
@@ -173,7 +174,7 @@ end
 function safeAnim.setStartDelayIfExists(model, name, delay)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setStartDelay(delay)
+        return anim:setStartDelay(delay)
     end
 end
 
@@ -187,7 +188,7 @@ end
 function safeAnim.setLoopDelayIfExists(model, name, delay)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setLoopDelay(delay)
+        return anim:setLoopDelay(delay)
     end
 end
 
@@ -202,14 +203,14 @@ end
 function safeAnim.setOverrideIfExists(model, name, override)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setOverride(override)
+        return anim:setOverride(override)
     end
 end
 
 function safeAnim.setOverrideRotIfExists(model, name, override)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setOverrideRot(override)
+        return anim:setOverrideRot(override)
     end
 end
 
@@ -223,7 +224,7 @@ end
 function safeAnim.setOverridePosIfExists(model, name, override)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setOverridePos(override)
+        return anim:setOverridePos(override)
     end
 end
 
@@ -237,7 +238,7 @@ end
 function safeAnim.setOverrideScaleIfExists(model, name, override)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:setOverrideScale(override)
+        return anim:setOverrideScale(override)
     end
 end
 
@@ -259,7 +260,7 @@ end
 function safeAnim.newCodeIfExists(model, name, time, code)
     if safeAnim.isExists(model, name) then
         local anim = model[name]
-        anim:newCode(time, code)
+        return anim:newCode(time, code)
     end
 end
 

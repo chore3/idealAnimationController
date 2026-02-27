@@ -7,6 +7,25 @@
 
 ---
 
+# 🔍クイックスタート
+`avatar.json`のautoScriptsを`script`から`examples/script`に書き換えることで実装例を見ながら動作を確認することができます。
+
+```JSON
+{
+  "name": "dev",
+  "description": "",
+  "authors": [
+    "chore_3"
+  ],
+  "color": "#f8c53a",
+  "autoScripts": [
+    "examples/script"
+  ]
+}
+```
+
+---
+
 # 📌機能
 ## アニメーションの自動再生
 デフォルト状態で自動再生されるアニメーションは以下の通りです。
