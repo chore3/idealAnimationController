@@ -264,7 +264,7 @@ countChildren(root)
 **戻り値:**
 | 型 |　説明 |
 | --- | :--- |
-| [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | - |
+| [Integer](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | - |
 
 ---
 
@@ -299,7 +299,7 @@ hideAllChildren(root)
 **戻り値:**
 | 型 |　説明 |
 | --- | :--- |
-| [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | 非表示にした子ノードの個数 |
+| [Integer](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | 非表示にした子ノードの個数 |
 
 **使用例:**
 ```lua
@@ -332,6 +332,47 @@ end
 ```
 
 ---
+
+### `mergeTable()`
+二つのテーブルを統合します。
+```lua
+mergeTable(t1, t2)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `t1` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | - |
+| `t2` | [Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | - |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+[Table](https://figura-wiki.pages.dev/tutorials/Types/Tables) | - |
+
+---
+
+### `randomBoxPos()`
+指定した範囲内のランダムな3次元座標を返します。
+```lua
+randomBoxPos(min, max)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `min` | [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | X, Y, Z座標の最小範囲 |
+| `max` | [Numbers](https://figura-wiki.pages.dev/tutorials/Types/Numbers) | X, Y, Z座標の最大範囲 |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+[Vector3](https://figura-wiki.pages.dev/globals/Vectors/Vector3) | - |
+
+**使用例:**
+```lua
+local randomPos = util.randomBoxPos(-0.02, 0.02):add(0, -0.1, 0)
+particles:newParticle("flame", models.model.root.Body.Jetpack.leftEngine:partToWorldMatrix():apply():add(randomPos)):setVelocity(0, -0.1, 0):setLifetime(5)
+```
+
 
 # ⚖️ライセンス
 see [LICENCE](./LICENCE.md).
