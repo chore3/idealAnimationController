@@ -37,7 +37,8 @@ _G.customStates = {
 -- ==================================================
 
 function events.tick()
-    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates),
+    local exclusiveAnim = util.getHighestPriorityActivePlayableState(animations.model,
+    util.mergeTable(stateHandler.states, customStates),
         exclusiveAnimationsMap)
     if exclusiveAnim == nil then
         exclusiveAnim = "idle"

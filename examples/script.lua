@@ -38,7 +38,8 @@ require("./onStateEvent")
 -- ==================================================
 
 function events.tick()
-    local exclusiveAnim = util.getHighestPriorityActiveState(util.mergeTable(stateHandler.states, customStates),
+    local exclusiveAnim = util.getHighestPriorityActivePlayableState(EXAMPLE_MODEL_ANIMATIONS,
+        util.mergeTable(stateHandler.states, customStates),
         exclusiveAnimationsMap)
     if exclusiveAnim == nil then
         exclusiveAnim = "idle"
