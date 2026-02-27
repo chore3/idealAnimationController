@@ -73,7 +73,7 @@ function util.getHighestPriorityActivePlayableState(model, states, allowedSet)
         if states[name] ~= nil then
             state = states[name]
         end
-        if priority and priority > maxPriority and model[name] and state then
+        if priority and priority > maxPriority and safeAnim.isExists(model, name) and state then
             maxPriority = priority
             topState = name
         end
