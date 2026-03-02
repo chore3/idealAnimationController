@@ -49,36 +49,49 @@ function util.getUnexpectedAnimations(model, allowedSet)
     return diff
 end
 
-function util.getHighestPriorityActiveState(states, allowedSet)
-    local topState = nil
+local function getStateValue(states, name)
+    if states[name] ~= nil then
+        return states[name]
+    end
+    return true
+end
+
+local function findPriorityStates(model, states, allowedSet)
     local maxPriority = -1
+    local priorityStates = {}
+    
     for name, priority in pairs(allowedSet) do
-        local state = true
-        if states[name] ~= nil then
-            state = states[name]
-        end
-        if priority and priority > maxPriority and state then
-            maxPriority = priority
-            topState = name
+        local state = getStateValue(states, name)
+        if priority and state and safeAnim.isExists(model, name) then
+            if priority > maxPriority then
+                maxPriority = priority
+            end
+            priorityStates[name] = priority
         end
     end
-    return topState
+    
+    local results = {}
+    for name, priority in pairs(priorityStates) do
+        if priority == maxPriority then
+            table.insert(results, name)
+        end
+    end
+    
+    return results
 end
 
 function util.getHighestPriorityActivePlayableState(model, states, allowedSet)
-    local topState = nil
-    local maxPriority = -1
-    for name, priority in pairs(allowedSet) do
-        local state = true
-        if states[name] ~= nil then
-            state = states[name]
-        end
-        if priority and priority > maxPriority and safeAnim.isExists(model, name) and state then
-            maxPriority = priority
-            topState = name
-        end
+    local results = findPriorityStates(model, states, allowedSet)
+    return results[1] or nil
+end
+
+function util.getHighestPriorityActivePlayableStateList(model, states, allowedSet)
+    local results = findPriorityStates(model, states, allowedSet)
+    local topStateList = {}
+    for _, name in ipairs(results) do
+        topStateList:add(name)
     end
-    return topState
+    return topStateList
 end
 
 -- ==================================================
