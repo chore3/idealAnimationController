@@ -46,7 +46,7 @@ function events.tick()
         exclusiveAnimList = { "idle" }
     end
     for name, _ in pairs(exclusiveAnimationsMap) do
-        safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
+        safeAnim.setPlayIfExists(animations.model, name, util.table.containsValue(exclusiveAnimList, name))
     end
 end
 

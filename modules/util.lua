@@ -103,6 +103,17 @@ function util.table.merge(t1, t2)
     return res
 end
 
+function util.table.containsValue(t, value)
+    for _, v in pairs(t) do
+        if v == value then return true end
+    end
+    return false
+end
+
+function util.table.containsKey(t, key)
+    return t[key] ~= nil
+end
+
 function util.randomBoxPos(min, max)
     local SCALE = 1000
     if max < min then
