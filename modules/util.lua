@@ -96,6 +96,7 @@ end
 
 -- ==================================================
 
+util.table = {}
 function util.table.merge(t1, t2)
     local res = {}
     for k, v in pairs(t1) do res[k] = v end
