@@ -37,11 +37,13 @@ _G.customStates = {
 -- ==================================================
 
 function events.tick()
-    
-    local exclusiveAnim = util.getHighestPriorityActivePlayableState(animations.model, util.mergeTable(stateHandler.states, customStates),
-        exclusiveAnimationsMap)
-    if exclusiveAnim == nil then
-        exclusiveAnim = "idle"
+    local exclusiveAnimList = util.getHighestPriorityActivePlayableStateList(
+        animations.model,
+        util.mergeTable(stateHandler.states, customStates),
+        exclusiveAnimationsMap
+    )
+    if #exclusiveAnimList == 0 then
+        exclusiveAnimList = { "idle" }
     end
     for name, _ in pairs(exclusiveAnimationsMap) do
         safeAnim.setPlayIfExists(animations.model, name, name == exclusiveAnim)
