@@ -38,15 +38,15 @@ require("./onStateEvent")
 -- ==================================================
 
 function events.tick()
-    local exclusiveAnim = util.getHighestPriorityActivePlayableState(EXAMPLE_MODEL_ANIMATIONS,
-        util.mergeTable(stateHandler.states, customStates),
-        exclusiveAnimationsMap)
-    if exclusiveAnim == nil then
-        exclusiveAnim = "idle"
+    local exclusiveAnimList = util.getHighestPriorityActivePlayableStateList(
+        EXAMPLE_MODEL_ANIMATIONS,
+        util.table.merge(stateHandler.states, customStates),
+        exclusiveAnimationsMap
+    )
+    if #exclusiveAnimList == 0 then
+        exclusiveAnimList = { "idle" }
     end
     for name, _ in pairs(exclusiveAnimationsMap) do
-        safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, name == exclusiveAnim)
+        safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, util.table.containsValue(exclusiveAnimList, name))
     end
-
-    safeAnim.setPlayIfExists(animations["examples.models.skull"], "skullAnim", true)
 end

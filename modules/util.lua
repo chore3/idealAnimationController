@@ -49,45 +49,70 @@ function util.getUnexpectedAnimations(model, allowedSet)
     return diff
 end
 
-function util.getHighestPriorityActiveState(states, allowedSet)
-    local topState = nil
+local function getStateValue(states, name)
+    if states[name] ~= nil then
+        return states[name]
+    end
+    return true
+end
+
+local function findPriorityStates(model, states, allowedSet)
     local maxPriority = -1
+    local priorityStates = {}
+
     for name, priority in pairs(allowedSet) do
-        local state = true
-        if states[name] ~= nil then
-            state = states[name]
-        end
-        if priority and priority > maxPriority and state then
-            maxPriority = priority
-            topState = name
+        local state = getStateValue(states, name)
+        if priority and state and safeAnim.isExists(model, name) then
+            if priority > maxPriority then
+                maxPriority = priority
+            end
+            priorityStates[name] = priority
         end
     end
-    return topState
+
+    local results = {}
+    for name, priority in pairs(priorityStates) do
+        if priority == maxPriority then
+            table.insert(results, name)
+        end
+    end
+
+    return results
 end
 
 function util.getHighestPriorityActivePlayableState(model, states, allowedSet)
-    local topState = nil
-    local maxPriority = -1
-    for name, priority in pairs(allowedSet) do
-        local state = true
-        if states[name] ~= nil then
-            state = states[name]
-        end
-        if priority and priority > maxPriority and safeAnim.isExists(model, name) and state then
-            maxPriority = priority
-            topState = name
-        end
+    local results = findPriorityStates(model, states, allowedSet)
+    return results[1] or nil
+end
+
+function util.getHighestPriorityActivePlayableStateList(model, states, allowedSet)
+    local results = findPriorityStates(model, states, allowedSet)
+    local topStateList = {}
+    for _, name in ipairs(results) do
+        table.insert(topStateList, name)
     end
-    return topState
+    return topStateList
 end
 
 -- ==================================================
 
-function util.mergeTable(t1, t2)
+util.table = {}
+function util.table.merge(t1, t2)
     local res = {}
     for k, v in pairs(t1) do res[k] = v end
     for k, v in pairs(t2) do res[k] = v end
     return res
+end
+
+function util.table.containsValue(t, value)
+    for _, v in pairs(t) do
+        if v == value then return true end
+    end
+    return false
+end
+
+function util.table.containsKey(t, key)
+    return t[key] ~= nil
 end
 
 function util.randomBoxPos(min, max)
