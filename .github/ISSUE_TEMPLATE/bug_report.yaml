@@ -1,0 +1,81 @@
+name: 🐛 バグ報告
+description: プロジェクトで発生した不具合を報告してください
+title: 🐛 [BUG] 簡潔なタイトル
+labels: "\U0001F41Bbug"
+assignees:
+  - YOUR_NAME_HERE
+
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        ## 🐛 バグ報告ありがとうございます
+
+        このテンプレートは、問題を迅速かつ正確に特定・修正するためのものです。  
+        可能な範囲で具体的に記入してください。
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: 🛑 事前確認
+      description: Issue を作成する前に、以下を確認してください。
+      options:
+        - label: 既存の Issue に同様の報告がないことを確認しました
+          required: true
+        - label: 最新のリリースで発生している問題です
+          required: true
+        - label: この Issue では **1 つのバグのみ** を報告しています
+          required: true
+
+  - type: markdown
+    attributes:
+      value: '---'
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 🗣️ バグの説明
+      description: 何が起きているのかを簡潔かつ明確に記述してください。
+      placeholder: >-
+        電子レンジを700Wで起動すると、途中で加熱が止まります。
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 🔄 再現方法
+      description: 問題を再現するための簡単な方法。
+      placeholder: |-
+        1. 食品を入れる
+        2. 電子レンジをの出力を700Wにする
+        2. 加熱時間を設定する
+        3. スタートを押す
+        4. 途中で停止する
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: ✅ 期待される動作
+      description: 本来どのような動作をするべきかを記述してください。
+      placeholder: >-
+        エラーが発生せず、正常に処理が完了する。
+    validations:
+      required: true
+
+  - type: textarea
+    id: solutions
+    attributes:
+      label: 💡 解決策・代替案
+      description: 試した回避策や考えられる解決案があれば記載してください。
+      placeholder: >-
+        トースターのコンセントを抜くと、動作するがパンが焼けなくなる。
+
+  - type: textarea
+    id: other
+    attributes:
+      label: 📝 その他
+      description: ログ、スクリーンショット、補足情報などがあれば記載してください。
+      placeholder: |　
