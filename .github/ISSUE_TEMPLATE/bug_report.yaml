@@ -35,7 +35,7 @@ body:
     id: description
     attributes:
       label: 🗣️ バグの説明
-      description: 何が起きているのかを簡潔かつ明確に記述してください。
+      description: 何が起きているのかを簡潔に記述してください。
       placeholder: >-
         電子レンジを700Wで起動すると、途中で加熱が止まります。
     validations:
