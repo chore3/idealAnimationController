@@ -59,7 +59,7 @@ end
 local function findPriorityStates(model, states, allowedSet)
     local maxPriority = -1
     local priorityStates = {}
-    
+
     for name, priority in pairs(allowedSet) do
         local state = getStateValue(states, name)
         if priority and state and safeAnim.isExists(model, name) then
@@ -69,14 +69,14 @@ local function findPriorityStates(model, states, allowedSet)
             priorityStates[name] = priority
         end
     end
-    
+
     local results = {}
     for name, priority in pairs(priorityStates) do
         if priority == maxPriority then
             table.insert(results, name)
         end
     end
-    
+
     return results
 end
 
