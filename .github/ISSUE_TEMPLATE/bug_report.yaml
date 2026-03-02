@@ -78,4 +78,4 @@ body:
     attributes:
       label: 📝 その他
       description: ログ、スクリーンショット、補足情報などがあれば記載してください。
-      placeholder: |　
+      placeholder: >- エラーログのスクリーンショットなどあれば掲載してください。
