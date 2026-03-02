@@ -39,7 +39,7 @@ require("./onStateEvent")
 
 function events.tick()
     local exclusiveAnimList = util.getHighestPriorityActivePlayableStateList(
-        animations.model,
+        EXAMPLE_MODEL_ANIMATIONS,
         util.table.merge(stateHandler.states, customStates),
         exclusiveAnimationsMap
     )
@@ -47,6 +47,6 @@ function events.tick()
         exclusiveAnimList = { "idle" }
     end
     for name, _ in pairs(exclusiveAnimationsMap) do
-        safeAnim.setPlayIfExists(animations.model, name, util.table.containsValue(exclusiveAnimList, name))
+        safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, util.table.containsValue(exclusiveAnimList, name))
     end
 end
