@@ -39,7 +39,7 @@ _G.customStates = {
 function events.tick()
     local exclusiveAnimList = util.getHighestPriorityActivePlayableStateList(
         animations.model,
-        util.mergeTable(stateHandler.states, customStates),
+        util.table.merge(stateHandler.states, customStates),
         exclusiveAnimationsMap
     )
     if #exclusiveAnimList == 0 then
