@@ -61,7 +61,7 @@ body:
       label: ✅ 期待される動作
       description: 本来どのような動作をするべきかを記述してください。
       placeholder: >-
-        エラーが発生せず、正常に処理が完了する。
+        電子レンジが設定した時間分、最後まで加熱を行う。
     validations:
       required: true
 
