@@ -89,7 +89,7 @@ function util.getHighestPriorityActivePlayableStateList(model, states, allowedSe
     local results = findPriorityStates(model, states, allowedSet)
     local topStateList = {}
     for _, name in ipairs(results) do
-        topStateList:add(name)
+        table.insert(topStateList, name)
     end
     return topStateList
 end
