@@ -1,9 +1,7 @@
 name: 🐛 バグ報告
 description: プロジェクトで発生した不具合を報告してください
-title: 🐛 [BUG] 簡潔なタイトル
-labels: "\U0001F41Bbug"
-assignees:
-  - YOUR_NAME_HERE
+title: 🐛 [タイトル]
+labels: "🐛bug"
 
 body:
   - type: markdown
