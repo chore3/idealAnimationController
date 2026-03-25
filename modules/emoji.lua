@@ -2299,8 +2299,8 @@ local nature = {
     ["brain"] = {"🧠"},
     ["heart_anatomical"] = {},
     ["mushroom"] = {"🍄"},
-    ["tree"] = {},
-    ["leaf"] = {},
+    ["tree"] = {"🌳", "🌴"},
+    ["leaf"] = {"🍃", "🍂", "🍁", "🍀", "☘️", "🌿"},
     ["rock"] = {"🪨"},
     ["wilted_rose"] = {},
 }
