@@ -1,3 +1,7 @@
+local emoji = {}
+
+-- ==================================================
+
 local animal = {
     ["shark"] = {"🦈"},
     ["blahaj2"] = {},
@@ -2654,3 +2658,33 @@ local symbol = {
     ["lucky_7"] = {},
     ["back"] = {"🔙"},
 }
+
+-- ==================================================
+
+function emoji.unicode2shortcode(str)
+    local categories = {
+        animal, animated, face_happy, face_misc, face_sad, face_stress,
+        festive, flag_a_d, flag_e_k, flag_l_q, flag_r_z, food, gesture,
+        heart, letters, logo, meme, minecraft_animated, minecraft_blocks,
+        minecraft_items, minecraft_mobs, misc, nature, object, portrait,
+        pride, reference, reference_bloons, reference_logo, reference_retro, symbol,
+    }
+    local emojiMap = {}
+    for _, category in ipairs(categories) do
+        for shortcode, chars in pairs(category) do
+            for _, char in ipairs(chars) do
+                if char ~= "" then
+                    emojiMap[char] = shortcode
+                end
+            end
+        end
+    end
+    for emoji, shortcode in pairs(emojiMap) do
+        str = str:gsub(emoji, ":" .. shortcode .. ":")
+    end
+    return str
+end
+
+-- ==================================================
+
+return emoji
