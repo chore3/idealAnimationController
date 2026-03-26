@@ -414,6 +414,46 @@ particles:newParticle("flame", models.model.root.Body.Jetpack.leftEngine:partToW
 
 ---
 
+## emoji
+Unicodeベースの絵文字をFiguraの絵文字ショートコードに変換するメソッドを提供します。
+
+</br>
+
+このモジュールは以下のようにして読み込むことができます。
+```lua
+emoji = require("modules/emoji")
+```
+
+</br>
+
+### `unicode2shortcode()`
+モジュール内のテーブルを参照しながら、引数として渡された文字列に含まれる絵文字をFiguraの絵文字ショートコードに変換して返します。
+```lua
+unicode2shortcode(str)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `str` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 変換したい文字列 |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | - |
+
+**使用例:**
+以下は、送信するチャットの絵文字をFiguraの絵文字に置き換える最もシンプルな実装例です。
+```lua
+local emoji = require("modules/emoji")
+events.CHAT_SEND_MESSAGE:register(function (message)
+    return emoji.unicode2shortcode(message)
+end)
+```
+
+この実装例を利用するためには`設定 > 開発者 > チャットメッセージ`を`オン`にして、スクリプトがチャットメッセージを変更することを許可する必要があります。
+
+---
+
 # ⚖️ライセンス
 see [LICENCE](./LICENCE.md).
 > [LICENCE](./LICENCE.md)をご確認ください。
