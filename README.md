@@ -1,3 +1,18 @@
+1. [📦導入方法](#anchor1)
+1. [🔍クイックスタート](#anchor2)
+1. [📌機能](#anchor3)
+    1. [アニメーションの自動再生](#anchor3-1)
+    1. [イベントハンドラ](#anchor3-2)
+1. [🛠️モジュール](#anchor4)
+    1. [stateHandler](#anchor4-1)
+    1. [safeAnim](#anchor4-2)
+    1. [util](#anchor4-3)
+    1. [emoji](#anchor4-4)
+1. [⚖️ライセンス](#anchor5)
+
+---
+
+<a id="anchor1"></a>
 # 📦導入方法
 ## Releases
 
@@ -7,6 +22,7 @@
 
 ---
 
+<a id="anchor2"></a>
 # 🔍クイックスタート
 `avatar.json`のautoScriptsを`script`から`examples/script`に書き換えることで実装例を見ながら動作を確認することができます。
 
@@ -26,7 +42,9 @@
 
 ---
 
+<a id="anchor3"></a>
 # 📌機能
+<a id="anchor3-1"></a>
 ## アニメーションの自動再生
 デフォルトのプログラムではBlockbench内で以下の名称で作成したアニメーションが「状態」の変化に合わせて自動的に再生されます。
 | 名称 | 説明 | 排他的 | 優先度 | 推奨ループモード |
@@ -103,6 +121,7 @@ _G.customStates = {
 
 </br>
 
+<a id="anchor3-2"></a>
 ## イベントハンドラ
 stateHandlerモジュールで管理している「状態」が真(true)に変化したタイミングで実行されるコールバック関数です。イベントハンドラはすべて次の命名規則に従います。
 
@@ -127,8 +146,11 @@ end)
 
 ---
 
+<a id="anchor4"></a>
 # 🛠️モジュール
 このプロジェクトでは、処理を分かりやすく整理するために機能ごとに分けた「モジュール」を使用しています。
+
+<a id="anchor4-1"></a>
 ## stateHandler
 stateHandlerは、Host/Client間を同期しながらプレイヤーの状態を管理、保持するモジュールです。また、このモジュールは状態遷移に基づくイベント処理を提供します。
 
@@ -187,6 +209,7 @@ end)
 
 ---
 
+<a id="anchor4-2"></a>
 ## safeAnim
 指定したアニメーションが存在する場合にのみ再生を試みるAnimationのラッパー関数を提供するモジュールです。FiguraMODのAnimation APIの代わりに利用することで存在しないアニメーション参照した場合に起こるエラーを防ぐことができます。
 
@@ -276,6 +299,7 @@ safeAnim.setPlayIfExists(myModel, "animation", crouching)
 
 ---
 
+<a id="anchor4-3"></a>
 ## util
 汎用的な関数を提供します。
 
@@ -414,6 +438,48 @@ particles:newParticle("flame", models.model.root.Body.Jetpack.leftEngine:partToW
 
 ---
 
+<a id="anchor4-4"></a>
+## emoji
+Unicodeベースの絵文字をFiguraの絵文字ショートコードに変換するメソッドを提供します。
+
+</br>
+
+このモジュールは以下のようにして読み込むことができます。
+```lua
+emoji = require("modules/emoji")
+```
+
+</br>
+
+### `unicode2shortcode()`
+モジュール内のテーブルを参照しながら、引数として渡された文字列に含まれる絵文字をFiguraの絵文字ショートコードに変換して返します。
+```lua
+unicode2shortcode(str)
+```
+**引数:**
+| 名称 | 型 |　説明 |
+| --- | -- | :--- |
+| `str` | [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | 変換したい文字列 |
+
+**戻り値:**
+| 型 |　説明 |
+| --- | :--- |
+| [String](https://figura-wiki.pages.dev/tutorials/types/Strings) | - |
+
+**使用例:**
+以下は、送信するチャットの絵文字をFiguraの絵文字に置き換える最もシンプルな実装例です。
+```lua
+local emoji = require("modules/emoji")
+events.CHAT_SEND_MESSAGE:register(function (message)
+    return emoji.unicode2shortcode(message)
+end)
+```
+
+この実装例を利用するためには`設定 > 開発者 > チャットメッセージ`を`オン`にして、スクリプトがチャットメッセージを変更することを許可する必要があります。
+
+---
+
+<a id="anchor5"></a>
 # ⚖️ライセンス
 see [LICENCE](./LICENCE.md).
 > [LICENCE](./LICENCE.md)をご確認ください。
