@@ -35,7 +35,9 @@ local states = {
     sleep = false,
     flying = false,
     die = false,
-    glow = false
+    glow = false,
+
+    noneActive = false
 }
 
 local localState = {}
@@ -116,6 +118,8 @@ function events.tick()
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
     local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
+    setState("idle", not v.xz:length() > 0.0)
+
     setState("walk", v.xz:length() > walkThreshold and not getCurrent("sprint"))
     setState("crouch", safePose == "CROUCHING")
     setState("sprint", isPlayerLoaded and player:isSprinting() or false)
@@ -139,12 +143,12 @@ function events.tick()
 
     local allOthersFalse = true
     for name, st in pairs(localState) do
-        if name ~= "idle" and st.current then
+        if name ~= "noneActive" and st.current then
             allOthersFalse = false
             break
         end
     end
-    setState("idle", allOthersFalse)
+    setState("noneActive", allOthersFalse)
 
     syncStates()
 end
