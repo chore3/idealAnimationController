@@ -83,7 +83,7 @@ hostStates.chat.getter = function()
     if not player:isLoaded() then
         return hostStates.chat.prev
     end
-    return not player:getPose() == "SLEEPING" and host:isChatOpen()
+    return player:getPose() ~= "SLEEPING" and host:isChatOpen()
 end
 
 function events.tick()
@@ -118,7 +118,7 @@ function events.tick()
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
     local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
-    setState("idle", not v.xz:length() > 0.0)
+    setState("idle", not (v.xz:length() > 0.0))
 
     setState("walk", v.xz:length() > walkThreshold and not getCurrent("sprint"))
     setState("crouch", safePose == "CROUCHING")
