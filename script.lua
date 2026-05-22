@@ -14,18 +14,19 @@ local util = require("modules/util")
 -- [利用可能な「状態」はREADME.mdか`log(stateHandler.states)`を実行することで確認できます。]
 -- [また、`exclusiveAnimationsMap`と`customStates`の両方に任意の名称で「状態」を追記することで`stateHandler.states`の役割を拡張することができます。]
 local exclusiveAnimationsMap = {
-    idle = 0,
-    fishing = 1,
-    sprint = 2,
-    walk = 3,
-    crouch = 4,
-    swim = 5,
-    climb = 6,
-    fall = 7,
-    glide = 8,
-    riptide = 9,
-    sleep = 10,
-    die = 11
+    noneActive = 0,
+    idle = 10,
+    fishing = 20,
+    sprint = 30,
+    walk = 40,
+    crouch = 50,
+    swim = 60,
+    climb = 70,
+    fall = 80,
+    glide = 90,
+    riptide = 100,
+    sleep = 110,
+    die = 120
 }
 
 -- # 「状態」の追加
@@ -43,7 +44,7 @@ function events.tick()
         exclusiveAnimationsMap
     )
     if #exclusiveAnimList == 0 then
-        exclusiveAnimList = { "idle" }
+        exclusiveAnimList = { "noneActive" }
     end
     for name, _ in pairs(exclusiveAnimationsMap) do
         safeAnim.setPlayIfExists(animations.model, name, util.table.containsValue(exclusiveAnimList, name))

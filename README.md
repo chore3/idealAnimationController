@@ -49,18 +49,19 @@
 デフォルトのプログラムではBlockbench内で以下の名称で作成したアニメーションが「状態」の変化に合わせて自動的に再生されます。
 | 名称 | 説明 | 排他的 | 優先度 | 推奨ループモード |
 | :-- | :-- | :-: | :-- | :-- |
-| `idle` | 何もせずに立っているときに再生されます | ○ | 0 | ループ |
-| `fishing` | 釣り竿を使用して釣りをしている間に再生されます | ○ | 1 | ループ |
-| `sprint` | ダッシュしているときに再生されます | ○ | 2 | ループ |
-| `walk` | 歩いているときに再生されます | ○ | 3 | ループ |
-| `crouch` | しゃがみ（スニーク）状態のときに再生されます | ○ | 4 | ループ |
-| `swim` | 泳いでいるときに再生されます | ○ | 5 | ループ |
-| `climb` | はしごやツタなどを登っているときに再生されます | ○ | 6 | ループ |
-| `fall` | 落下している最中に再生されます | ○ | 7 | ループ |
-| `glide` | エリトラで滑空しているときに再生されます | ○ | 8 | ループ |
-| `riptide` | 激流効果で高速移動しているときに再生されます | ○ | 9 | ループ |
-| `sleep` | ベッドで横になっているときに再生されます | ○ | 10 | ループ |
-| `die` | 死亡時に再生されます | ○ | 11 | ループ |
+| `noneActive` | 再生可能なアニメーション候補が存在しないときに再生されるフォールバック状態です | ○ | 0 | ループ |
+| `idle` | 水平移動していないときに再生されます | ○ | 10 | ループ |
+| `fishing` | 釣り竿を使用して釣りをしている間に再生されます | ○ | 20 | ループ |
+| `sprint` | ダッシュしているときに再生されます | ○ | 30 | ループ |
+| `walk` | 歩いているときに再生されます | ○ | 40 | ループ |
+| `crouch` | しゃがみ（スニーク）状態のときに再生されます | ○ | 50 | ループ |
+| `swim` | 泳いでいるときに再生されます | ○ | 60 | ループ |
+| `climb` | はしごやツタなどを登っているときに再生されます | ○ | 70 | ループ |
+| `fall` | 落下している最中に再生されます | ○ | 80 | ループ |
+| `glide` | エリトラで滑空しているときに再生されます | ○ | 90 | ループ |
+| `riptide` | 激流効果で高速移動しているときに再生されます | ○ | 100 | ループ |
+| `sleep` | ベッドで横になっているときに再生されます | ○ | 110 | ループ |
+| `die` | 死亡時に再生されます | ○ | 120 | ループ |
 | `onJump` | ジャンプしたときに再生されます | × | - | 一回のみ |
 
 複数の「排他的」なアニメーションが再生されるべき状態にある場合、最も優先度の高い1つのみが再生されます。
@@ -72,20 +73,21 @@
 排他的なアニメーションは`script.lua`内の`exclusiveAnimationsMap`を編集することで変更できます。いくつか変更例を見てみましょう。クリエイティブモードの飛行時のみ異なるアニメーションを再生する場合は`flying`を追加します。
 ```lua
 local exclusiveAnimationsMap = {
-    idle = 0,
-    fishing = 1,
-    sprint = 2,
-    walk = 3,
-    crouch = 4,
-    swim = 5,
-    climb = 6,
-    fall = 7,
-    glide = 8,
-    riptide = 9,
-    sleep = 10,
-    die = 11,
+    noneActive = 0,
+    idle = 10,
+    fishing = 20,
+    sprint = 30,
+    walk = 40,
+    crouch = 50,
+    swim = 60,
+    climb = 70,
+    fall = 80,
+    glide = 90,
+    riptide = 100,
+    sleep = 110,
+    die = 120,
 
-    flying = 12
+    flying = 130
 }
 ```
 `idle`, `fishing`そして`flying`のように事前に定義されている「状態」は`stateHandler`というモジュールで管理されています。すべての「状態」については「モジュール/stateHandler」を参照してください。
@@ -97,27 +99,28 @@ local exclusiveAnimationsMap = {
 例えば、`newExclusiveAnimation`を新たに排他的なアニメーションとして追加する場合、以下のようにします。
 ```lua
 local exclusiveAnimationsMap = {
-    idle = 0,
-    fishing = 1,
-    sprint = 2,
-    walk = 3,
-    crouch = 4,
-    swim = 5,
-    climb = 6,
-    fall = 7,
-    glide = 8,
-    riptide = 9,
-    sleep = 10,
-    die = 11,
+    noneActive = 0,
+    idle = 10,
+    fishing = 20,
+    sprint = 30,
+    walk = 40,
+    crouch = 50,
+    swim = 60,
+    climb = 70,
+    fall = 80,
+    glide = 90,
+    riptide = 100,
+    sleep = 110,
+    die = 120,
 
-    newExclusiveAnimation = 100
+    newExclusiveAnimation = 1000
 }
 
 _G.customStates = {
     newExclusiveAnimation = false
 }
 ```
-`newExclusiveAnimation`は100であり、これは他のどの「状態」よりも高い優先度であるため、アクションホイールなどで`customStates.newExclusiveAnimation = true`のようにして`newExclusiveAnimation`の状態を真(true)にした場合、常に`newExclusiveAnimation`という名称のアニメーションが再生されます。
+`newExclusiveAnimation`は1000であり、これは他のどの「状態」よりも高い優先度であるため、アクションホイールなどで`customStates.newExclusiveAnimation = true`のようにして`newExclusiveAnimation`の状態を真(true)にした場合、常に`newExclusiveAnimation`という名称のアニメーションが再生されます。
 
 </br>
 
@@ -165,7 +168,8 @@ stateHandlerは以下の状態を保持します。
 
 | 状態名 | 状態取得関数 | イベントハンドラ | 説明 |
 | :-- | :-- | :-- | :-- |
-| `idle` | `isIdle()` | `onIdle()` | 他のすべての状態が `false` のときに自動的に `true` になる待機状態 |
+| `noneActive` | `isNoneActive()` | `onNoneActive()` | 再生可能なアニメーション候補が存在しないときに再生されるフォールバック状態 |
+| `idle` | `isIdle()` | `onIdle()` | 水平移動していないときに真になる待機状態 |
 | `walk` | `isWalk()` | `onWalk()` | `sprint` ではないが、地上またはクリエ飛行中に移動している状態 |
 | `crouch` | `isCrouch()` | `onCrouch()` | スニーク状態 |
 | `sprint` | `isSprint()` | `onSprint()` | 地上またはクリエ飛行中に走っている状態 |

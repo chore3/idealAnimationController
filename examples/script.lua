@@ -11,20 +11,21 @@ _G.stateHandler = require("modules/stateHandler")
 local util = require("modules/util")
 
 local exclusiveAnimationsMap = {
-    idle = 0,
-    fishing = 1,
-    sprint = 2,
-    walk = 3,
-    crouch = 4,
-    swim = 5,
-    climb = 6,
-    fall = 7,
-    glide = 8,
-    riptide = 9,
-    sleep = 10,
-    die = 11,
+    noneActive = 0,
+    idle = 10,
+    fishing = 20,
+    sprint = 30,
+    walk = 40,
+    crouch = 50,
+    swim = 60,
+    climb = 70,
+    fall = 80,
+    glide = 90,
+    riptide = 100,
+    sleep = 110,
+    die = 120,
 
-    newExclusiveAnimation = 100
+    newExclusiveAnimation = 1000
 }
 
 _G.customStates = {
@@ -44,7 +45,7 @@ function events.tick()
         exclusiveAnimationsMap
     )
     if #exclusiveAnimList == 0 then
-        exclusiveAnimList = { "idle" }
+        exclusiveAnimList = { "noneActive" }
     end
     for name, _ in pairs(exclusiveAnimationsMap) do
         safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, name, util.table.containsValue(exclusiveAnimList, name))
