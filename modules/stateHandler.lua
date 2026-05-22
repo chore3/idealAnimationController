@@ -2,6 +2,12 @@ local stateHandler = {}
 
 -- ==================================================
 
+-- Parameter
+local walkThreshold = 0.2 -- 移動の閾値
+local fallThreshold = -0.1 -- 落下の閾値
+
+-- ==================================================
+
 local function noop() end
 
 local states = {
@@ -110,11 +116,11 @@ function events.tick()
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
     local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
-    setState("walk", v.xz:length() > 0.2 and not getCurrent("sprint"))
+    setState("walk", v.xz:length() > walkThreshold and not getCurrent("sprint"))
     setState("crouch", safePose == "CROUCHING")
     setState("sprint", isPlayerLoaded and player:isSprinting() or false)
 
-    setState("fall", not isVisuallyOnGround and v.y < -0.1 and not isSwimming and not isGliding)
+    setState("fall", not isVisuallyOnGround and v.y < fallThreshold and not isSwimming and not isGliding)
     setState("swim", isSwimming)
     setState("climb", isPlayerLoaded and player:isClimbing() or false)
     setState("glide", isGliding)
