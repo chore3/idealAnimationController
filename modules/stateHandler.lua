@@ -118,7 +118,7 @@ function events.tick()
     local isEating = isPlayerLoaded and player:getActiveItem():getUseAction() == "EAT" or false
     local isDrinking = isPlayerLoaded and player:getActiveItem():getUseAction() == "DRINK" or false
 
-    setState("idle", not (v.xz:length() > 0.0))
+    setState("idle", not (v.xz:length() > walkThreshold))
 
     setState("walk", v.xz:length() > walkThreshold and not getCurrent("sprint"))
     setState("crouch", safePose == "CROUCHING")
