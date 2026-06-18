@@ -5,6 +5,7 @@ vanilla_model.ELYTRA:setVisible(false)
 -- ==================================================
 
 local safeAnim = require("modules/safeAnim")
+local physicsObjects = require("modules/physicsObjects")
 _G.stateHandler = require("modules/stateHandler")
 local util = require("modules/util")
 

@@ -7,6 +7,7 @@ _G.EXAMPLE_MODEL_ANIMATIONS = animations["examples.models.model"]
 -- ==================================================
 
 local safeAnim = require("modules/safeAnim")
+local physicsObjects = require("modules/physicsObjects")
 _G.stateHandler = require("modules/stateHandler")
 local util = require("modules/util")
 
