@@ -130,6 +130,10 @@ function util.randomBoxPos(min, max)
     return vec(math.random(min, max) / SCALE, math.random(min, max) / SCALE, math.random(min, max) / SCALE)
 end
 
+function util.worldToModelPos(pos)
+    return pos * 16
+end
+
 -- ==================================================
 
 return util
