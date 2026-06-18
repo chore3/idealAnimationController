@@ -134,6 +134,48 @@ function util.worldToModelPos(pos)
     return pos * 16
 end
 
+function worldToModelPos(pos)
+    return pos * 16
+end
+
+function util.directionToModelMatrix(position, direction, roll)
+    if not position or not direction or direction:length() == 0 then
+        return nil
+    end
+
+    local forward = direction:normalized()
+    local reference = math.abs(forward.y) > 0.999 and vec(0, 0, 1) or vec(0, 1, 0)
+
+    local right = vec(forward.x, forward.y, forward.z):cross(reference):normalized()
+    local up = vec(right.x, right.y, right.z):cross(forward):normalized()
+
+    if roll and roll ~= 0 then
+        local radians = math.rad(roll)
+        local cosRoll = math.cos(radians)
+        local sinRoll = math.sin(radians)
+        local rolledRight = right * cosRoll + up * sinRoll
+        local rolledUp = up * cosRoll - right * sinRoll
+        right = rolledRight
+        up = rolledUp
+    end
+
+    local modelPos = worldToModelPos(position)
+    return matrices.mat4(
+        vec(right.x, right.y, right.z, 0),
+        vec(forward.x, forward.y, forward.z, 0),
+        vec(up.x, up.y, up.z, 0),
+        vec(modelPos.x, modelPos.y, modelPos.z, 1)
+    )
+end
+
+function util.setPartDirFromUp(part, position, direction, roll)
+    local matrix = util.directionToModelMatrix(position, direction, roll)
+    if matrix then
+        part:setMatrix(matrix)
+    end
+    return part
+end
+
 -- ==================================================
 
 return util

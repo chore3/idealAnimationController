@@ -16,30 +16,16 @@ function pings.waveHand()
     safeAnim.setPlayIfExists(EXAMPLE_MODEL_ANIMATIONS, "nonExclusiveAnimation", true)
 end
 
--- bbmodel が +Y（上向き）を正面として作られている前提で、
--- direction ベクトルへ向ける回転を設定する
-local function setPartDirFromUp(part, direction)
-    if not direction or direction:length() == 0 then
-        return
-    end
-    local dir = direction:normalized()
-    local rotX = math.deg(math.asin(math.max(-1, math.min(1, dir.z))))
-    local rotZ = math.deg(math.atan(-dir.x, dir.y))
-    part:setRot(rotX, 0, rotZ)
-end
-
 function pings.spawnExampleMissile(pos, dir)
     physicsObjects.new({
         model = models.examples.models.missile.root,
         position = pos,
         init = function(self)
-            self.velocity = dir * 0.8
-            setPartDirFromUp(self.part, dir)
+            self.velocity = dir:normalized() * 0.5
+            self.roll = 0
+            util.setPartDirFromUp(self.part, self.position, self.velocity, self.roll)
         end,
         tick = function(self)
-            self.velocity = self.velocity + vec(0, -0.01, 0)
-            setPartDirFromUp(self.part, self.velocity)
-
             local isBlocked = physicsObjects.probeNextBlock(self, self.velocity)
             if isBlocked or self.age > 80 then
                 self:destroy()
@@ -47,7 +33,7 @@ function pings.spawnExampleMissile(pos, dir)
             end
 
             self.position = self.position + self.velocity
-            self.part:setPos(util.worldToModelPos(self.position))
+            util.setPartDirFromUp(self.part, self.position, self.velocity, self.roll)
         end,
     })
 end
